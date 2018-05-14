@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+    <div class="row">
+        <div class="container-fluid">
+
+            <div class="row h1">
+                <p class="col-md-offset-4 text-center col-md-4 h1">{{ pageContent }}</p>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-1 col-md-offset-1">
+                    <div class="btn-group-vertical" role="group" aria-label="...">
+                        <a href="/login/questionmanager"><button type="button" class="btn btn-default">查看内容</button></a>
+                        <a href="/login/newquestion"><button type="button" class="btn btn-default ">创建内容</button></a>
+                        <a><button type="button" class="btn btn-default">..............</button></a>
+                        <a><button type="button" class="btn btn-default">..............</button></a>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-1">
+                    <div class="container-fluid">
+                        <div class="row ">
+                            <table class=" table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-1">#</th>
+                                        <th class="col-md-2">名字</th>
+                                        <th class="col-md-2">类型</th>
+
+                                        <th>内容</th>
+                                        <th class="col-md-2 text-center">操作</th>
+                                    </tr>
+                                </thead>
+
+                                    <tbody id="vuetbody">
+                                            <template v-for="q in questions"  :key="q.id">
+                                                 <new-body :q="q"></new-body>
+                                            </template>
+                                    </tbody>
+{#                                    <div id="vtbody">#}
+{#                                        {% templatetag openvariable %}data{% templatetag closevariable %}#}
+{#                                    <tr v-for="q in quesitons">#}
+{#                                        <th socpe="row">{{ q.id }}</th>#}
+{#                                            <td>{% templatetag openvariable %} q.name {% templatetag closevariable %}</td>#}
+{#                                            <td>{% templatetag openvariable %} q.type {% templatetag closevariable %}</td>#}
+{#                                            <td>{% templatetag openvariable %} q.content {% templatetag closevariable %}</td>#}
+{#                                            <td class="text-center" >#}
+{#                                                <a href="../questions/show/edit?q_id={% templatetag openvariable %}q.id {% templatetag closevariable %}"> 编辑</a>|#}
+{#                                                <a>删除</a>#}
+{#                                            </td>#}
+{#                                    </tr>#}
+{#                                    </div>#}
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+{% endblock %}

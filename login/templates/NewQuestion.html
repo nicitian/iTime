@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="row">
+        <div class="container-fluid">
+
+            <div class="row h1">
+                <p class="col-md-offset-4 text-center col-md-4 h1">
+                    {% if err %}
+                        名字重复请重新创建！
+                    {% else %}
+                    {{ pageContent }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-1 col-md-offset-1">
+                    <div class="btn-group-vertical" role="group" aria-label="...">
+                        <a href="/login/questionmanager"><button type="button" class="btn btn-default selected">查看内容</button></a>
+                        <a href="/login/newquestion"><button type="button" class="btn btn-default ">创建内容</button></a>
+                        <a><button type="button" class="btn btn-default">..............</button></a>
+                        <a><button type="button" class="btn btn-default">..............</button></a>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-1">
+
+                    <form class="container-fluid" action="/questions/create" method="post" >
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="form-group col-md-2">
+                            <label for="name">名字</label>
+                            <input name="name" field="name" type="text" class="form-control" id="name" >
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group col-md-2">
+                            <label for="type">类型</label>
+                            <input name="type" field="type" type="text" class="form-control" id="type" >
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group col-md-12">
+                            <label for="content">内容</label>
+                              <textarea  name="content" field="content" type="textarea" class="form-control" id="content" ></textarea>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-default">确认增加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

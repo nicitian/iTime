@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>首页</title>
+
+    <!-- Bootstrabutton -->
+{#    <link href="css/bootstrap.min.css" rel="stylesheet">#}
+
+      {% load static %}
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+
+
+    <![endif]-->
+  </head>
+  <body>
+    <div class="vtbody">
+           <newTbody
+                v-for="q in questions"
+                :q="q"
+                :key="q.id">
+            </newTbody>
+    </div>
+    <div class="container-fluid">
+        {% block nav %}
+      <div class="row">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid ">
+            <div class="col-md-10 col-md-offset-1 ">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header ">
+
+              <img class="img-responsive img-header" src="https://www.baidu.com/img/bd_logo1.png"  width="100" height="200" >
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div   class="collapse navbar-collapse  row-center navbar-right " id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav h2" >
+                <li class="text-info "><a class="" href="/login/questionmanager">内容管理 <span class="sr-only">(current)</span></a></li>
+                <li><a class="text-info" href="#">内容显示</a></li>
+                <li class=""></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.account }} <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/login/logout">注销</a></li>
+                  </ul>
+        </li>
+              </ul>
+
+
+            </div><!-- /.navbar-collapse -->
+            </div>
+          </div><!-- /.container-fluid -->
+        </nav>
+      </div>
+        {% endblock %}
+        {% block body %}
+
+        {% endblock %}
+
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+{#    <script src="../static/js/npm.js"></script>#}
+
+      <script src="../static/js/vsystem.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+{#    <script src="js/bootstrap.min.js"></script>#}
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>正在注册...</title>
+
+    <!-- Bootstrap -->
+{#    <link href="css/bootstrap.min.css" rel="stylesheet">#}
+      {% load static %}
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-4 col-lg-4 align-center">
+                <h1>{% if repeatd %}账户重复！{% endif %}请{% if repeatd %}重新{% endif %}输入注册信息</h1>
+            </div>
+        </div>
+        <div class="row" id="vform">
+            <form class="form-signin col-md-offset-4 col-lg-4"  action="Regist" method="post" >
+                {% csrf_token %}
+                <label for="inputEmail" class="sr-only" >请输入账户</label>
+                <input type="text" name="account" field="account" id="inputEmail" v-model="account" class="form-control" placeholder="请输入账户" required autofocus>
+                <label for="inputPassword" class="sr-only">请输入密码</label>
+                <input type="password" name="password" field="password" id="inputPassword" v-model="password" class="form-control" placeholder="请输入密码" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="../static/js/vsystem.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+{#    <script src="js/bootstrap.min.js"></script>#}
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+
+</html>
