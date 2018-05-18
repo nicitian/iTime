@@ -70,10 +70,7 @@
             axios.get([g.http,'/finance/get'].join('')).then(
                                                     (res)=>{
                                                        this.formValidate=res.data.body;  
-                                                       console.log(res) 
-                                                        
-                                                       
-
+                                                       console.log(res)                                                                                                             
                         });
         },
         methods: {

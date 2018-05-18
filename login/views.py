@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from questions.models import Questions
 import functools
-
+import json
 import  json
 # Create your views here.
 from .models import Account
@@ -16,7 +16,7 @@ def dec_login(func):
     return wrapper
 
 def showLoginPage(request):
-    return render(request,'login/login.html',{'ok':False})
+    return render(request,'login/login_.html',{'ok':False})
 
 def submit(request):
     print("----------------",request.POST)
@@ -27,9 +27,11 @@ def submit(request):
     if q:
         request.session['login'] = True
         request.session['user'] = q
-        return HttpResponseRedirect('/login/index')
+        res = {'success':True,'info':'登录成功',"toURL":"/login/index"}
+        return HttpResponse(json.dumps(res), content_type="application/json")
     else:
-        return render(request,'login/login.html',{'err':True,'info':"账号或密码输入有误！！"})
+        res = {'success':False,'err':'账号或密码输入有误！！！','info':'账号或密码输入有误!!'}
+        return HttpResponse(json.dumps(res), content_type="application/json")
 
 def questionmanager(request):
     Qs = Questions.objects.all()
@@ -37,14 +39,14 @@ def questionmanager(request):
     if request.session.get('login',False):
         return render(request,'QuestionManager.html',{'user':request.session['user'],'pageContent':"查看内容",'questions':Qs})
     else:
-        return render(request,'login/login.html',{'err':True})
+        return render(request,'login/login_.html',{'err':True})
 
 def newQuestion(request):
     pageContent = "名字重复，请重新创建！" if request.GET.get('err','false')=='True' else "创建内容"
     if request.session.get('login',False):
         return render(request,'NewQuestion.html',{'user':request.session['user'],'pageContent':pageContent})
     else:
-        return render(request,'login/login.html',{'err':True})
+        return render(request,'login/login_.html',{'err':True})
 
 def index(request):
     # print(request.session.get('login',False))
@@ -52,7 +54,7 @@ def index(request):
     if request.session.get('login',False):
         return render(request,'index_.html',{'user':request.session['user']})
     else:
-        return render(request,'login/login.html',{'err':True,'info':"请先登录！！！"})
+        return render(request,'login/login_.html',{'err':True,'info':"请先登录！！！"})
 
 def index_(request):
     return HttpResponseRedirect('login/index')
@@ -84,7 +86,7 @@ def Regist(request):
     else:
         newAccount=Account(account=account,password=password)
         newAccount.save()
-        return  render(request,'login/login.html',{'ok':True})
+        return  render(request,'login/login_.html',{'ok':True})
 
 def RegistApi(request):
     print("---------------",request.POST)

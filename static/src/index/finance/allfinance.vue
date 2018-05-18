@@ -31,7 +31,7 @@ var max_num = 80;
         props:['Page','pid'],
         data () {                        
             return {                
-                columns1: [
+            columns1: [
                     {
                         title:'操作',
                         key:'op_type',

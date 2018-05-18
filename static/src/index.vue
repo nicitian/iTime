@@ -1,7 +1,7 @@
 <style scoped>
     .layout{
-        border: 1px solid #d7dde4;
-        background: #f5f7f9;
+        border: 1px solid #ffffff;
+        background: #ffffff;
         position: relative;
         border-radius: 4px;
         overflow: hidden;
@@ -9,7 +9,7 @@
     .layout-logo{
         width: 100px;
         height: 50px;
-        background: #fdfdfd;
+        background: #ffffff;
         border-radius: 3px;
         float: left;
         position: relative;
@@ -45,10 +45,10 @@
                             <Icon type="stats-bars"></Icon>
                             财务
                         </MenuItem>
-                        <MenuItem name="person" @click.native="clickHeader('person')">                          
+                        <!-- <MenuItem name="person" @click.native="clickHeader('person')">                          
                             <Icon type="ios-people"></Icon>
                             人员
-                        </MenuItem>
+                        </MenuItem> -->
                         <MenuItem name="login">
                             <Dropdown  placement="bottom-end">                            
                                 <a href="javascript:void(0)" @clidck.native="handleInfo">
@@ -56,7 +56,7 @@
                                     <Icon type="arrow-down-b"></Icon>
                                 </a>
                                 <DropdownMenu slot="list">
-                                    <DropdownItem @click.native="handleInfo()">个人信息</DropdownItem>                                    
+                                    <!-- <DropdownItem @click.native="handleInfo()">个人信息</DropdownItem>                                     -->
                                     <DropdownItem @click.native="handleLogout()">注销</DropdownItem>                                   
                                 </DropdownMenu>
                             </Dropdown>
@@ -109,10 +109,10 @@
                                                 <Icon type="android-menu"></Icon>
                                                 <span>所有操作</span>
                                             </MenuItem>
-                                            <MenuItem name="queryOprations" @click.native="clickOprationsSider('queryOprations')">
+                                            <!-- <MenuItem name="queryOprations" @click.native="clickOprationsSider('queryOprations')">
                                                 <Icon type="android-search"></Icon>
                                                 <span>操作查询</span>
-                                            </MenuItem>
+                                            </MenuItem> -->
                                             <!-- <MenuItem name="edit" @click.native="clickSider('edit')">
                                                 <Icon type="edit"></Icon>
                                                 <span>编辑商品</span>
@@ -161,7 +161,7 @@
                                     </Sider>   
                                     <Content>
                                         <overview-finance @changeSider="clickFinanceSider" v-if="selectedFinance === 'overviewFinance'" :userid="userid"></overview-finance>
-                                        <add-goods @changeSider="clickFinanceSider" v-if="selectedFinance === 'queryFinance'" :userid="userid"></add-goods>
+                                        <query-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'queryFinance'" :page="globalData.queryFinancePage" :userid="userid"></query-fi>
                                         <all-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'allFinance'" :Page="globalData.goodschangePage" :pid="pid"></all-fi>
                                         <op-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'opFinance'" :Page="globalData.goodschangePage" :pid="pid"></op-fi>
                                     </Content>
@@ -185,8 +185,9 @@
     import overviewFinance from './index/finance/overviewfinance.vue';
     import allFi from './index/finance/allfinance.vue';
     import opFi from './index/finance/opfinance.vue';
+    import queryFi from './index/finance/queryfinance.vue';
     export default {
-        components:{addGoods,overview,allOp,overviewFinance,allFi,opFi},
+        components:{addGoods,overview,allOp,overviewFinance,allFi,opFi,queryFi},
         methods:{
             handleInfo(){
                 console.log("handleInfo");
@@ -229,6 +230,8 @@
                 globalData:{
                     goodsPage:'1',
                     goodschangePage:'1',
+                    queryFinancePage:'1',
+
                 }
                 
             }
