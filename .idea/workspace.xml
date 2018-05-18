@@ -2,44 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3edda986-63e0-44da-8741-6702cbb7f97d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.05acfdb5.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.05acfdb568b3df49ad31355b19495d4a.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.24712f6c.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.24712f6c47821394fba7942fbb52c3b2.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.2c2ae068.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.2c2ae068be3b089e0a5b59abb1831550.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/logo.76ecb6e7.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/logo.76ecb6e76d2c438065f90cd7f8fa7371.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/logo1.15abde88.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/logo1.15abde882b097a1107c3b6f1f0bb588c.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/image/ionicons.05acfdb5.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/image/ionicons.24712f6c.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/image/ionicons.2c2ae068.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/image/logo.76ecb6e7.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/image/ionicons.05acfdb5.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/image/ionicons.24712f6c.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/image/ionicons.2c2ae068.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/image/logo.76ecb6e7.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/0.52e61edc.chunk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.621bd386.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/image/ionicons.621bd386841f74e0053cb8e67f8a0604.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/0.294f4d2e.chunk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/image/ionicons.621bd386.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/main.294f4d2e.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/main.294f4d2e.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/login/vendors.294f4d2e.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/main.52e61edc.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/main.52e61edc.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/0.6491ef6b.chunk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/image/ionicons.621bd386.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/main.6491ef6b.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/main.6491ef6b.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/regist/vendors.6491ef6b.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/dist/vendors.52e61edc.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/iview/dist/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/.gitignore" afterPath="$PROJECT_DIR$/static/.gitignore" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -119,21 +82,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2524">
-              <caret line="27" column="69" lean-forward="false" selection-start-line="27" selection-start-column="69" selection-end-line="27" selection-end-column="69" />
+            <state relative-caret-position="520">
+              <caret line="50" column="48" lean-forward="true" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            <state relative-caret-position="216">
+              <caret line="8" column="16" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -192,7 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>url(r'^toRegister$',views.showRegisterPage,name='registerPage'),</find>
       <find>session</find>
       <find>dire</find>
       <find>col-3</find>
@@ -222,6 +184,7 @@
       <find>now</find>
       <find>start_gte</find>
       <find>end_gte</find>
+      <find>csrf</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -272,8 +235,8 @@
         <option value="$PROJECT_DIR$/finance/urls.py" />
         <option value="$PROJECT_DIR$/finance/models.py" />
         <option value="$PROJECT_DIR$/finance/views.py" />
-        <option value="$PROJECT_DIR$/mysite/settings.py" />
         <option value="$PROJECT_DIR$/static/.gitignore" />
+        <option value="$PROJECT_DIR$/mysite/settings.py" />
       </list>
     </option>
   </component>
@@ -483,7 +446,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5727749" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28586388" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39958158" sideWeight="0.49791667" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -866,14 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2524">
-          <caret line="27" column="69" lean-forward="false" selection-start-line="27" selection-start-column="69" selection-end-line="27" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
@@ -884,8 +839,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        <state relative-caret-position="216">
+          <caret line="8" column="16" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -897,6 +852,14 @@
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="50" column="48" lean-forward="true" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
