@@ -19,7 +19,7 @@ from login import views
 from django.conf import settings
 urlpatterns = []
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
 
 urlpatterns = [
     url(r'^polls/',include('polls.urls',namespace='polls')),
