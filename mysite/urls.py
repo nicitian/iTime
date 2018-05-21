@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url,include,static
 from django.contrib import admin
 from login import views
-import settings
+from django.conf import settings
 urlpatterns = []
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
