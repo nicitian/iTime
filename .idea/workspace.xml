@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3edda986-63e0-44da-8741-6702cbb7f97d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite.conf" afterPath="$PROJECT_DIR$/mysite.conf" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,8 +51,8 @@
       <file leaf-file-name="mysite.conf" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite.conf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="49" column="44" lean-forward="false" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
+            <state relative-caret-position="199">
+              <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -158,7 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>vuetbody</find>
       <find>v.js</find>
       <find>temp</find>
       <find>statci</find>
@@ -188,6 +186,7 @@
       <find>proce</find>
       <find>debug</find>
       <find>*.</find>
+      <find>ali</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -835,6 +834,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysite.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/finance/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -842,14 +849,6 @@
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="49" column="44" lean-forward="false" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
