@@ -18,7 +18,7 @@
         left: 20px;
     }
     .layout-nav{
-        width: 520px;
+        width: 600px;
         margin: 0 auto;
         margin-right: 20px;
     }

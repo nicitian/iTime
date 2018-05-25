@@ -6,28 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3edda986-63e0-44da-8741-6702cbb7f97d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/partner/urls.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/0.52e61edc.chunk.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/main.52e61edc.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/main.52e61edc.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/vendors.52e61edc.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finance/models.py" afterPath="$PROJECT_DIR$/finance/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finance/views.py" afterPath="$PROJECT_DIR$/finance/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/goods/models.py" afterPath="$PROJECT_DIR$/goods/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/goods/urls.py" afterPath="$PROJECT_DIR$/goods/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/goods/views.py" afterPath="$PROJECT_DIR$/goods/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login/templates/index_.html" afterPath="$PROJECT_DIR$/login/templates/index_.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/urls.py" afterPath="$PROJECT_DIR$/mysite/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index.vue" afterPath="$PROJECT_DIR$/static/src/index.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/finance/allfinance.vue" afterPath="$PROJECT_DIR$/static/src/index/finance/allfinance.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/finance/opfinance.vue" afterPath="$PROJECT_DIR$/static/src/index/finance/opfinance.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/finance/queryfinance.vue" afterPath="$PROJECT_DIR$/static/src/index/finance/queryfinance.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/oprations/alloprations.vue" afterPath="$PROJECT_DIR$/static/src/index/oprations/alloprations.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/storehouse/overview.vue" afterPath="$PROJECT_DIR$/static/src/index/storehouse/overview.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/storehouse/putinGoods.vue" afterPath="$PROJECT_DIR$/static/src/index/storehouse/putinGoods.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/index/storehouse/putoutGoods.vue" afterPath="$PROJECT_DIR$/static/src/index/storehouse/putoutGoods.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/goods/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="461">
@@ -97,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/login/models.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+            <state relative-caret-position="491">
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -243,7 +224,6 @@
         <option value="$PROJECT_DIR$/mime.types" />
         <option value="$PROJECT_DIR$/uwsgi.ini" />
         <option value="$PROJECT_DIR$/mysite.conf" />
-        <option value="$PROJECT_DIR$/mysite/settings.py" />
         <option value="$PROJECT_DIR$/goods/urls.py" />
         <option value="$PROJECT_DIR$/partner/models.py" />
         <option value="$PROJECT_DIR$/mysite/urls.py" />
@@ -253,6 +233,7 @@
         <option value="$PROJECT_DIR$/goods/models.py" />
         <option value="$PROJECT_DIR$/finance/views.py" />
         <option value="$PROJECT_DIR$/goods/views.py" />
+        <option value="$PROJECT_DIR$/mysite/settings.py" />
       </list>
     </option>
   </component>
@@ -720,14 +701,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/partner/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
@@ -760,16 +733,6 @@
           <caret line="10" column="52" lean-forward="false" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
           <folding>
             <element signature="e#0#35#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/partner/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -853,6 +816,24 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partner/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
