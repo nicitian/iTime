@@ -75,7 +75,8 @@ var max_num = 80;
                         title:'操作',
                         key:'op_type',
                         width:100
-                    },                   
+                    },
+                                    
                     {
                         title: '金额',
                         key: 'money', 
@@ -152,7 +153,12 @@ var max_num = 80;
                         title:'操作',
                         key:'op_type',
                         width:100
-                    },                   
+                    },    
+                    {
+                        title:'交易对象',
+                        key:'partner',
+                        width:100
+                    },                
                     {
                         title: '金额',
                         key: 'money', 

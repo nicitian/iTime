@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^questions/',include('questions.urls',namespace='questions')),
     url(r'^goods/', include('goods.urls', namespace='goods')),
     url(r'^finance/', include('finance.urls', namespace='finance')),
+    url(r'^partner/', include('partner.urls', namespace='partner')),
+
 ]

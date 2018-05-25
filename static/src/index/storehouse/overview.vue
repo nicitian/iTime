@@ -129,6 +129,7 @@ var number_width = 80;
            },
            putinGoods(rdata){               
                let count = 0;
+               let partner = '';
                let userid = this.pid;
                let page = this.goodsPage
                let self = this.$Message
@@ -140,6 +141,7 @@ var number_width = 80;
                                     goodsid:rdata.id,
                                     userid,
                                     price:rdata.price,
+                                    partner
                                 }
                                 console.log('onok····',http)        
                                 axios.get([g.http,'/goods/goodschanges/create'].join(''),{params:Params}).then((res)=>{
@@ -151,7 +153,8 @@ var number_width = 80;
                             }
 
                 function setCount(num){count = num;}     
-
+                function setPartner(p_id){partner = p_id;}     
+            
                 let config = {
                                 title:"<p style='color:#2d8cf0'>请填写商品入库数量...</p>",
                                 width:350,
@@ -160,7 +163,8 @@ var number_width = 80;
                                 onOk:onok,                                                       
                                 render:h =>h(putin,{
                                                     props:{rowdata:rdata},
-                                                    on:{input:setCount},                                                    
+                                                    on:{input:setCount,
+                                                        select:setPartner},                                                    
                                                 }   
                                         )                                                                                    
                         }
@@ -168,6 +172,7 @@ var number_width = 80;
            },         
            putoutGoods(rdata){
                let count = 0;
+               let partner = '';
                let userid = this.pid;
                let page = this.goodsPage
                let self = this.$Message
@@ -179,7 +184,8 @@ var number_width = 80;
                                     goodsid:rdata.id,
                                     userid,
                                     price:rdata.price,
-                                    type:'出库'
+                                    type:'出库',
+                                    partner
                                 }
                                 console.log('onok····',http)        
                                 axios.get([g.http,'/goods/goodschanges/create'].join(''),{params:Params}).then((res)=>{
@@ -191,6 +197,7 @@ var number_width = 80;
                             }
 
                 function setCount(num){count = num;}     
+                function setPartner(p_id){partner = p_id;}     
 
                 let config = {
                                 title:"<p style='color:#19be6b'>请填写商品出库数量...</p>",
@@ -200,7 +207,8 @@ var number_width = 80;
                                 onOk:onok,                                                       
                                 render:h =>h(putout,{
                                                     props:{rowdata:rdata},
-                                                    on:{input:setCount},                                                    
+                                                    on:{input:setCount,
+                                                        select:setPartner},                                                    
                                                 }   
                                         )                                                                                    
                         }

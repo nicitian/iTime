@@ -1,4 +1,5 @@
 from django.db import models
+from partner.models import Partner
 import django.utils.timezone as timezone
 # Create your models here.
 class GoodsChanges(models.Model):
@@ -14,8 +15,9 @@ class GoodsChanges(models.Model):
         (IN,'入库')
     )
 
+    partner = models.ForeignKey('partner.partner', blank=True, null=True)
     opration_type = models.CharField(choices=op_types,default=IN,max_length=100)
-    to = models.ForeignKey('Goods')#关联到商品
+    to = models.ForeignKey('Goods',blank=True)#关联到商品
     change_people = models.ForeignKey('login.Account')#修改人员
     create_time = models.DateTimeField("create time",auto_now=True)
     def new_total(self):

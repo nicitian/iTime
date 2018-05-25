@@ -9,7 +9,22 @@
                         <Option v-for="item in formValidate.types" :value="item.value" :key="item.value">{{item.label}}</Option>            
                     </Select>
                 </FormItem>
-
+                <Row>
+                    <Col span="4">
+                        <FormItem label="交易对象"  prop="partner">                        
+                            <Select 
+                                v-model="formValidate.partner"                                
+                                filterable
+                                remote
+                                :remote-method="partnerRemote"
+                                :loading="formValidate.partnerLoading"
+                                placeholder="请输入伙伴名并选择"
+                                style="width:220px">
+                                <Option v-for="item in formValidate.partners" :value="item.id" :key="item.id">{{item.value}}</Option>            
+                            </Select>
+                        </FormItem>
+                    </Col>
+                </Row>
                 <FormItem label="金额" prop="finance">
                     <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
                     <Input-number   v-model="formValidate.finance" placeholder="请填入总资金"></Input-number>
@@ -51,17 +66,19 @@
                     ],
                     type:'',
                     finance:0,//金额
-                    reason: ''
+                    reason: '',
+                    partner:'',
+                    partnerLoading:false,
+                    partners:[]
                 },
                 ruleValidate: {       
-
-                    finance:[
-                        
+                    finance:[                        
                         {type:'number',message:'只能输入数字'}
                     ],
                     type:[
                         {type:'string',required:true,message:'操作类型为必填项'}
                     ],
+                
                     reason: [
                         { required: true, message: '请输入操作财务的理由', trigger: 'blur' },
                         { type: 'string', message: '描述不能少于20个字符', trigger: 'blur' }
@@ -71,8 +88,23 @@
             }
         },
         methods: {
-            handleSubmit (name) {
-                
+            partnerRemote(query){
+                 if (query != '') {
+                    this.formValidate.partnerLoading = true;
+                    setTimeout(() => {
+                        
+                        axios.get([g.http,'/partner/query',"?name=",query].join('')).then(
+                                                    (res)=>{
+                                                        console.log(res);
+                                                        this.formValidate.partnerLoading = false;
+                                                       this.formValidate.partners = res.data;
+                        });
+                    }, 200);
+                } else {
+                    this.formValidate.partners = [];
+                }
+            },
+            handleSubmit (name) {                
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                                 var data = {
@@ -80,7 +112,8 @@
                                             type:this.formValidate.type,                                            
                                             finance:this.formValidate.finance,
                                             reason:this.formValidate.reason,
-                                            userid:this.pid                                            
+                                            userid:this.pid,
+                                            partner:this.formValidate.partner                                       
                                         };
 
                                 data = qs.stringify(data);

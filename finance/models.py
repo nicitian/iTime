@@ -6,6 +6,7 @@ class Finance(models.Model):
     total_income = models.IntegerField(default=0)
     total_cost = models.IntegerField(default=0)
 
+
 class FinanceMonth(models.Model):#财务月账单
     opt = models.CharField(max_length=100,default='所有')
     typ = models.CharField(max_length=100,default='所有')
@@ -13,13 +14,16 @@ class FinanceMonth(models.Model):#财务月账单
     total_income = models.IntegerField(default=0)
     total_cost = models.IntegerField(default=0)
     year_month = models.IntegerField(blank=False,null=False)
-    to_finance = models.ForeignKey('Finance')  # 关联到财务现状
+    to_finance = models.ForeignKey('Finance')# 关联到财务现状
+    partner = models.ForeignKey('partner.partner',blank=True,null=True)
+
 
 
 
 
 class FinanceRecords(models.Model):#财务记录
     create_time = models.DateTimeField("create time",default=timezone.now)
+    partner = models.ForeignKey('partner.partner', blank=True,null=True)
 
     INCOME = '收入'
     COST = '支出'

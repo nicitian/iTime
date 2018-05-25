@@ -31,40 +31,40 @@ var max_num = 80;
         props:['Page','pid'],
         data () {                        
             return {                
-            columns1: [
+                columns1: [
                     {
-                        title:'操作',
-                        key:'op_type',
+                        title:'名字',
+                        key:'name',
                         width:100
-                    },     
+                    },
                     {
-                        title:'交易对象',
-                        key:'partner',
-                        width:100
-                    },               
-                    {
-                        title: '金额',
-                        key: 'money', 
+                        title: '合作关系',
+                        key: 'relative', 
                         width:100                      
                     },
-                     {
-                        title:'类型',
-                        key:'re_type',
-                        width:100
+                    {
+                        title: '商品',
+                        key: 'goods',
+                        
+                        
                     },
                     {
-                        title: '备注',
-                        key: 'remark',                                            
+                        title: '负责人',
+                        key: 'charge_person',
+                        width:max_num,
                     },
                     {
-                        title: '操作人员',
-                        key: 'change_people',
-                        width:150
+                        title: '联系方式',
+                        key: 'phone_number'
                     },
                    {
-                       title:"时间",
-                       key:"datetime",
-                       width:150
+                       title:"地址",
+                       key:"address",
+                   }
+                   ,
+                   {
+                       title:"备注",
+                       key:"remark",
                    }
                 ],
                 data1:[],
@@ -76,7 +76,7 @@ var max_num = 80;
             }
         },
         created(){           
-            axios.get([g.http,'/finance/financerecords/get',"?page=",this.Page].join('')).then(
+            axios.get([g.http,'/partner/get',"?page=",this.Page].join('')).then(
                                                     (res)=>{
                                                        this.data1=res.data.body;   
                                                        this.pageinfo=res.data.pageinfo;   
@@ -86,7 +86,7 @@ var max_num = 80;
         },
        methods:{
            updateTable(){
-               axios.get([g.http,'/finance/financerecords/get',"?page=",this.Page].join('')).then(
+               axios.get([g.http,'/partner/get',"?page=",this.Page].join('')).then(
                                                     (res)=>{
                                                        this.data1=res.data.body;   
                                                        this.pageinfo=res.data.pageinfo;   
@@ -96,12 +96,12 @@ var max_num = 80;
            }
            ,
            pageGetPage(page){
-               axios.get([g.http,'/finance/financerecords/get','?page=',page].join('')).then(
+               axios.get([g.http,'/partner/get','?page=',page].join('')).then(
                                                     (res)=>{
                                                        this.data1=res.data.body;   
                                                        this.pageinfo=res.data.pageinfo;                                                    
                         });
-                this.$emit("changeSider","allFinance",page);
+                this.$emit("changeSider","allPartner",page);
            }
        }
     }

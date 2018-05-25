@@ -6,6 +6,7 @@ from login.models import Account
 import json
 from finance.models import Finance,FinanceRecords,FinanceMonth
 from django.db.models import Sum
+from partner.models import Partner
 # Create your views here.
 def GetFinance(request):
     print(request.GET)
@@ -104,10 +105,12 @@ def GetFinance(request):
     res={'success':True,'body':body}
     return HttpResponse(json.dumps(res), content_type="application/json")
 
-def createFinanceRecords(uid=1,fid=1,remark='',money=0,op_type='收入',re_type='其他'):
+def createFinanceRecords(uid=1,fid=1,remark='',money=0,op_type='收入',re_type='其他',partner=''):
     user = Account.objects.get(id=uid)
     fi = Finance.objects.get(id=fid)
     new_fr = FinanceRecords(opration_type=op_type,money=money,remark=remark,to=fi,change_people=user,reason_choice=re_type)
+    if partner:
+        new_fr.partner = partner
     new_fr.save()
 
 def test_gen_all_FR(request):
@@ -122,8 +125,9 @@ def EditFinance(request):
     id = int(request.POST.get('userid', 1))
     fid = int(request.POST.get('fid',1))
     reason = request.POST.get('reason',' ')
+    partner = request.POST.get('partner')
     modifyer = Account.objects.get(id=id)
-    if not Finance.objects.all():
+    if not Finance.objects.all():#第一次创建则自动创建一个finance
         new_finance = Finance(total_cost=0,total_finance=0,total_income=0)
         new_finance.save()
         remark = reason
@@ -132,7 +136,11 @@ def EditFinance(request):
     else:
         f = Finance.objects.get(id=fid)
         remark = reason
+
         new_FR = FinanceRecords(money=finance,change_people=modifyer, remark=remark, to=f, opration_type=op_type,reason_choice='其他')
+        if partner:
+            partner = Partner.objects.get(id=int(partner))
+            new_FR.partner = partner
         new_FR.save()
     res = {"success": True, "err": None}
     return HttpResponse(json.dumps(res), content_type="application/json")
@@ -177,6 +185,7 @@ def GetFinanceRecords(request):
         FR = [
                 {
                     'money':fr.money,
+                    'partner': fr.partner.name if fr.partner else '',
                     'change_people':fr.change_people.account,
                     'remark':fr.remark,
                     'op_type':fr.opration_type,

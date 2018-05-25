@@ -45,10 +45,10 @@
                             <Icon type="stats-bars"></Icon>
                             财务
                         </MenuItem>
-                        <!-- <MenuItem name="person" @click.native="clickHeader('person')">                          
+                        <MenuItem name="partner" @click.native="clickHeader('partner')">                          
                             <Icon type="ios-people"></Icon>
-                            人员
-                        </MenuItem> -->
+                            合作伙伴
+                        </MenuItem>
                         <MenuItem name="login">
                             <Dropdown  placement="bottom-end">                            
                                 <a href="javascript:void(0)" @clidck.native="handleInfo">
@@ -66,7 +66,7 @@
                 </Menu>                                                   
             </Header>               
                 <Layout v-if="headerActive === 'hoursestore'">                    
-                    <Content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '500px'}" >     
+                    <Content :style="{margin: '88px 20px 0', background: '#ffffff', minHeight: '500px'}" >     
                         <Row :style="{margin: '64px 0px 0px'}">
                         <Col span="16" offset="4">        
                             <Layout >
@@ -171,6 +171,42 @@
                     </Content>
                 </Layout>
 
+                <Layout v-if="headerActive === 'partner'">
+                     <Content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '500px'}" >     
+                        <Row :style="{margin: '64px 0px 0px'}">
+                            <Col span="18" offset="3">        
+                                <Layout >
+                                    <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
+                                    <Sider hide-trigger breakpoint="md" :style="{background: '#fff'}"  >
+                                        <Menu :active-name="selectedOpraions"  width="auto" >
+                                            <MenuItem name="allPartner" @click.native="clickPartnerSider('allPartner')">
+                                                <Icon type="android-menu"></Icon>
+                                                <span>所有伙伴</span>
+                                            </MenuItem>     
+                                            <MenuItem name="addPartner" @click.native="clickPartnerSider('addPartner')">
+                                                <Icon type="android-add"></Icon>
+                                                <span>添加伙伴</span>
+                                            </MenuItem>                                                           
+                                            <!-- <MenuItem name="edit" @click.native="clickSider('edit')">
+                                                <Icon type="edit"></Icon>
+                                                <span>编辑商品</span>ini
+                                            </MenuItem> -->
+                                        </Menu>                                            
+                                    </Sider>   
+                                    <Content>
+                                        <!-- <overview-finance @changeSider="clickPartnerSider" v-if="selectedFinance === 'overviewFinance'" :userid="userid"></overview-finance>
+                                        <query-fi @changeSider="clickPartnerSider" v-if="selectedFinance === 'queryFinance'" :page="globalData.queryFinancePage" :userid="userid"></query-fi>
+                                        <all-fi @changeSider="clickPartnerSider" v-if="selectedFinance === 'allFinance'" :Page="globalData.goodschangePage" :pid="pid"></all-fi> -->
+                                        <add-partner @changeSider="clickPartnerSider" v-if="selectedPartner === 'addPartner'" :Page="globalData.goodschangePage" :pid="pid"></add-partner>
+                                        <all-partner @changeSider="clickPartnerSider" v-if="selectedPartner === 'allPartner'" :Page="globalData.goodschangePage" :pid="pid"></all-partner>
+                                    </Content>
+                                </Layout>
+                            </Col>
+                        </Row>
+                    </Content>
+                </Layout>
+
+
             </Layout>
             <Footer class="layout-footer-center">2018-2020 &copy; ITime</Footer>
 
@@ -186,8 +222,10 @@
     import allFi from './index/finance/allfinance.vue';
     import opFi from './index/finance/opfinance.vue';
     import queryFi from './index/finance/queryfinance.vue';
+    import addPartner from './index/partner/addpartner.vue';
+    import allPartner from './index/partner/allpartner.vue';
     export default {
-        components:{addGoods,overview,allOp,overviewFinance,allFi,opFi,queryFi},
+        components:{addGoods,overview,allOp,overviewFinance,allFi,opFi,queryFi,addPartner,allPartner},
         methods:{
             handleInfo(){
                 console.log("handleInfo");
@@ -208,6 +246,9 @@
                 this.selectedFinance = name;
             }
             ,
+            clickPartnerSider(name){
+                this.selectedPartner = name;
+            },
             clickStoreHouse(){
                 console.log("trgger clickStoreHouse");
                 this.headerActive = 'hoursestore'
@@ -226,6 +267,7 @@
                 selected:'overview',
                 selectedOpraions:'allOprations',
                 selectedFinance:'allFinance',
+                selectedPartner:'allPartner',
                 headerActive:'hoursestore',
                 globalData:{
                     goodsPage:'1',

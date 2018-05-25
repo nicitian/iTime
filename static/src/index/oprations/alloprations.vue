@@ -43,6 +43,11 @@ var max_num = 80;
                         width:100                      
                     },
                     {
+                        title: '交易对象',
+                        key: 'partner', 
+                        width:100                      
+                    },
+                    {
                         title: '进/售价',
                         key: 'price',
                         width:max_num,
@@ -84,9 +89,7 @@ var max_num = 80;
                axios.get([g.http,'/goods/goodschanges/get',"?page=",this.Page].join('')).then(
                                                     (res)=>{
                                                        this.data1=res.data.body;   
-                                                       this.pageinfo=res.data.pageinfo;   
-                                                       
-
+                                                       this.pageinfo=res.data.pageinfo;                                                          
                         });
            }
            ,

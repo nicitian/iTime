@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from login.models import Account
 from finance.views import createFinanceRecords as createFr
 import json
+from partner.models import Partner
 # Create your views here.
 def goodsCreate(request):
     print(request.POST)
@@ -20,6 +21,13 @@ def goodsCreate(request):
         desc = request.POST.get('desc','')
         goods = Goods(name=name,costprice=costprice,saleprice=saleprice,initotal=initotal,desc=desc)
         goods.save()
+    return HttpResponse(json.dumps(res),content_type="application/json")
+
+def goodsQuery(request):
+
+    name = request.GET.get('name','')
+    goods_list = Goods.objects.filter(name__contains=name)
+    res = [{'value':g.name,'id':g.id} for g in goods_list]
     return HttpResponse(json.dumps(res),content_type="application/json")
 
 def goodsGet(request):
@@ -69,7 +77,14 @@ def changesGet(request):
 
         paginator = Paginator(goodRes, size)  # Show 25 contacts per page
 
-        goods = [ {"opration":change.opration_type,"name":change.to.name,"price":change.price,"datetime":change.create_time.strftime("%Y-%m-%d %H:%M:%S"),"totalprice":change.total_price(),'count':change.count} for change in paginator.page(page)]
+        goods = [ {
+                    "opration":change.opration_type,
+                    "name":change.to.name,
+                    "price":change.price,
+                    "datetime":change.create_time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "totalprice":change.total_price(),
+                    'count':change.count,
+                    "partner":change.partner.name if change.partner else ''} for change in paginator.page(page)]
         res = {"body":goods,"pageinfo":{'total':total,'current':page,'size':size,"apiUrl":apiUrl}}
         return HttpResponse(json.dumps(res),content_type="application/json")
         # try:
@@ -91,6 +106,7 @@ def goodschangeCreate(request):
     price = request.GET.get('price',0)
     count = request.GET.get('count',0)
     op_type = request.GET.get('type','入库')
+    partner = request.GET.get('partner','')
     if goodsid:
         goodsid = int(goodsid)
         Uid = int(uid)
@@ -103,10 +119,16 @@ def goodschangeCreate(request):
         print(goods)
         print(change_people)
         goodschange = GoodsChanges(change_people=change_people,count=count,to=goods,price=price,opration_type=op_type)
+        if partner:
+            partner = int(partner)
+            partner = Partner.objects.get(id=partner)
+            goodschange.partner = partner
         goodschange.save()
+
         op_t = '支出' if op_type=='入库' else '收入'
         money = count*goods.costprice if op_t == '支出' else count*goods.saleprice
-        createFr(uid=Uid,money=money,op_type=op_t,re_type=op_type,remark="\"{0}\"{1}{2}（单位）".format(goods.name,op_type,count))
+        createFr(partner=partner,uid=Uid,money=money,op_type=op_t,re_type=op_type,remark="\"{0}\"{1}{2}（单位）".format(goods.name,op_type,count))
+
         res={"success":True,"error":None}
         return HttpResponse(json.dumps([res]), content_type="application/json")
     else:
