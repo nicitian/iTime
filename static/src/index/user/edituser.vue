@@ -1,21 +1,12 @@
 <template>
-    <div class="layout">
-        <Layout>
-            <Header :style="{position: 'fixed', width: '100%'}" >
-                <Menu mode="horizontal" theme="dark" :active-name="headerActive">
-                  <img  class="layout-logo"  :src="logoUrl" alt="logo" />
-                  
-                </Menu>                                                   
-            </Header>               
-            <Layout>
-                <Content :style="{margin: '88px 20px 0', minHeight: '800px'}" >   
+    <Content :style="{margin: '88px 20px 0', minHeight: '800px'}" >   
                     <Layout>
                         <Row type="flex" align="middle" :style="{minHeight:'700px'}">
                             <Col span='4' offset='10'> 
                                 <Row>
                                     <Col>
                                         <p align="center" class='login-alert'>
-                                            请填写注册信息！
+                                            个人信息！
                                         </p>
                                     </Col>
                                 </Row>
@@ -23,13 +14,11 @@
                                 </Row>                               
                                 <Row>
                                     <Col >
-                                            <Form ref="form" :model="formInline" :rules="ruleInline" :label-width="80" action="Regist" method="post">                                                
+                                            <Form ref="formInline" :model="formInline"  :rules="ruleInline" :label-width="80"  method="post">                                                
                                                 <FormItem prop="user" label="用户名">
-                                                    <Input type="text" v-model="formInline.user" placeholder="用户名、账户"></Input>
+                                                    <Input readonly type="text" v-model="formInline.user" placeholder="用户名、账户"></Input>
                                                 </FormItem>
-                                                <FormItem prop="password" label="密码">
-                                                    <Input type="password" v-model="formInline.password" placeholder="密码"></Input>
-                                                </FormItem>
+                                                
                                                 <FormItem prop="mail" label="e-mail">
                                                     <Input type="mail" v-model="formInline.mail" placeholder="电子邮箱"></Input>
                                                 </FormItem>
@@ -47,8 +36,8 @@
                                                         <layout>
                                                             <Row type='flex' justify='center'>
                                                                 <Col >
-                                                                    <Button type="primary" @click="handleSubmit('formInline')">提交</Button>
-                                                                    <Button type="" @click="handleBack()">返回</Button>
+                                                                    <Button type="primary" @click="handleSubmit('formInline')">修改</Button>
+                                                                    <Button type="" @click="handleBack()">重置</Button>
                                                                 </Col>
                                                             </Row>
                                                         </Layout>
@@ -60,31 +49,21 @@
                         </Row>
                     </Layout>  
                 </Content>
-            </Layout>
-        </Layout>
-        <Footer class="layout-footer-center">2018-2020 &copy; ITime</Footer>
-
-    </div>
 </template>
-
-
-
 <script>
-   import axios from 'axios';
-   import u from './libs/util.js';
-   import qs from 'qs';
-   import g from './libs/global.js';
-           
-   axios.defaults.withCredentials = true;
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    axios.defaults.xsrfCookieName = "csrftoken";
-    export default {
-        data () {
-            return {
+import axios from 'axios';
+import g from '../../libs/global.js';
+import qs from 'qs';
+import u from '../../libs/util.js';  
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+export default {
+    data(){
+        return {
                 logoUrl:'../static/images/logo1.png',
                 formInline: {
-                    user: '',
-                    password: '',
+                    user: '',                    
                     phoneNumber:'',
                     mail:'',
                     weixinNumber:'',
@@ -96,81 +75,79 @@
                         { required: true, message: '请输入用户名...', trigger: 'blur' },
                         {type:'string',min:1,message:"输入有误！",trigger:'blur'}
                     ],
-                    password: [
-                        { required: true, message: '请输入密码...', trigger: 'blur' },
-                        { type: 'string', min: 6, message: '请输入至少6个字符！！', trigger: 'blur' }
+                    phoneNumber:[
+                        {type:'string',max:50}
                     ],
+                    qqNumber:[
+                        {type:'string',max:50}
+                    ],
+                    weixinNumber:[
+                        {type:'string',max:50}
+                    ],                    
                     mail:[
                         { required: true, message: '邮箱不能为空 ', trigger: 'blur' },
                         { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
                     ]
                 }
             }
+    },
+    created(){
+        axios.get([g.http,'/login/getUser'].join('')).then(
+                                                    (res)=>{
+                                                        console.log(res.data);
+                                                       this.formInline = res.data;
+                        });
+    },
+    methods:{
+        handleBack()
+        {
+            axios.get([g.http,'/login/getUser'].join('')).then(
+                                                    (res)=>{
+                                                        console.log(res.data);
+                                                       this.formInline = res.data;
+                        });
         },
-        methods: {
-            handleBack(){
-                window.location.href ='/login';
-            },
-            handleSubmit(name) {        
-                 this.$refs[name].validate((valid) => {
+         handleSubmit(name) {
+                this.$refs[name].validate((valid) => {
                     if (valid) {
                         let self =  this.$Message
                         var data = {
-                                        account:this.formInline.user,
-                                        password:this.formInline.password,
+                                                                
                                         phoneNumber:this.formInline.phoneNumber,
                                         weixinNumber:this.formInline.weixinNumber,
                                         qqNumber:this.formInline.qqNumber,
                                         mail:this.formInline.mail
                             }
-                            data = qs.stringify(data)
-                            axios.post(
-                                        [g.http,"/login/Regist_"].join(''),
-                                        data,
-                                        {
-                                        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                        data = qs.stringify(data)
+                        axios.post(
+                                    [g.http,"/login/updateUser"].join(''),
+                                    data,
+                                    {
+                                    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                                    }
+                                ).then(
+                                        res =>{
+                                                u.ajaxCallBack(res,'修改成功！',self,false);
+                                                axios.get([g.http,'/login/getUser'].join('')).then(
+                                                            (res)=>{
+                                                                console.log(res.data);
+                                                            this.formInline = res.data;
+                                                            });                                        
                                         }
-                                    ).then(res =>u.ajaxCallBack(res,'注册成功！',self,true,'/login/index'));
+                                    );
                     } else {
                         this.$Message.error('填写有误!');
                     }
-                })      
-               
+                })
+
+                
             },
-            handleRegist(name){
-                console.log("press 注册")
-            }
-        }
     }
+}
 </script>
+
 <style scoped>
-    .layout{
-        border: 1px solid #ffffff;
-        background: #ffffff;
-        position: relative;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    .layout-logo{
-        width: 100px;
-        height: 50px;
-        background: #ffffff;
-        border-radius: 3px;
-        float: left;
-        position: relative;
-        top: 6px;
-        bottom: 6px;
-        left: 20px;
-    }
-    .layout-nav{
-        width: 520px;
-        margin: 0 auto;
-        margin-right: 20px;
-    }
-    .layout-footer-center{
-        text-align: center;
-    }
-    .login-alert{
+        .login-alert{
         font-family: "PingFang SC";
         font-size: 2em;
         color:#2d8cf0;        

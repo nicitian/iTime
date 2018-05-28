@@ -1,10 +1,11 @@
 <style scoped>
     .layout{
         border: 1px solid #ffffff;
-        background: #ffffff;
+        background: gray;
         position: relative;
         border-radius: 4px;
         overflow: hidden;
+        height: 100%;
     }
     .layout-logo{
         width: 100px;
@@ -12,7 +13,7 @@
         background: #ffffff;
         border-radius: 3px;
         float: left;
-        position: relative;
+        position: relative; 
         top: 6px;
         bottom: 6px;
         left: 20px;
@@ -27,8 +28,8 @@
     }
 </style>
 <template>
-    <div class="layout">
-        <Layout>
+    <div >
+        <Layout class="layout">
             <Header :style="{position: 'fixed', width: '100%'}" >
                 <Menu mode="horizontal" theme="dark" :active-name="headerActive">
                   <img  class="layout-logo"  :src="logoUrl" alt="logo" />
@@ -56,7 +57,7 @@
                                     <Icon type="arrow-down-b"></Icon>
                                 </a>
                                 <DropdownMenu slot="list">
-                                    <!-- <DropdownItem @click.native="handleInfo()">个人信息</DropdownItem>                                     -->
+                                    <DropdownItem @click.native="handleUser()">个人信息</DropdownItem>                                    
                                     <DropdownItem @click.native="handleLogout()">注销</DropdownItem>                                   
                                 </DropdownMenu>
                             </Dropdown>
@@ -64,14 +65,17 @@
                         </MenuItem>
                   </div>
                 </Menu>                                                   
-            </Header>               
+            </Header>  
+                <Layout v-if="headerActive === 'showuser'">
+                    <user-info></user-info>
+                </Layout>             
                 <Layout v-if="headerActive === 'hoursestore'">                    
-                    <Content :style="{margin: '88px 20px 0', background: '#ffffff', minHeight: '500px'}" >     
+                    <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
                         <Row :style="{margin: '64px 0px 0px'}">
                         <Col span="16" offset="4">        
                             <Layout >
                                 <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                <Sider hide-trigger breakpoint="md" :style="{background: '#fff'}"  >
+                                <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
                                     <Menu :active-name="selected"  width="auto" >                    
                                         <MenuItem name="overview" @click.native="clickSider('overview')">
                                             <Icon type="ios-list"></Icon>
@@ -98,12 +102,12 @@
                 </Layout>  
 
                 <Layout v-if="headerActive === 'oprations'">
-                     <Content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '500px'}" >     
+                     <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
                         <Row :style="{margin: '64px 0px 0px'}">
                             <Col span="18" offset="3">        
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                    <Sider hide-trigger breakpoint="md" :style="{background: '#fff'}"  >
+                                    <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
                                         <Menu :active-name="selectedOpraions"  width="auto" >                    
                                             <MenuItem name="allOprations" @click.native="clickOprationsSider('allOprations')">
                                                 <Icon type="android-menu"></Icon>
@@ -130,12 +134,12 @@
                 </Layout>
 
                 <Layout v-if="headerActive === 'finance'">
-                     <Content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '500px'}" >     
+                     <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
                         <Row :style="{margin: '64px 0px 0px'}">
                             <Col span="18" offset="3">        
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                    <Sider hide-trigger breakpoint="md" :style="{background: '#fff'}"  >
+                                    <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
                                         <Menu :active-name="selectedOpraions"  width="auto" >
                                             <MenuItem name="allFinance" @click.native="clickFinanceSider('allFinance')">
                                                 <Icon type="android-menu"></Icon>
@@ -172,12 +176,12 @@
                 </Layout>
 
                 <Layout v-if="headerActive === 'partner'">
-                     <Content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '500px'}" >     
+                     <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
                         <Row :style="{margin: '64px 0px 0px'}">
                             <Col span="18" offset="3">        
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                    <Sider hide-trigger breakpoint="md" :style="{background: '#fff'}"  >
+                                    <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
                                         <Menu :active-name="selectedOpraions"  width="auto" >
                                             <MenuItem name="allPartner" @click.native="clickPartnerSider('allPartner')">
                                                 <Icon type="android-menu"></Icon>
@@ -214,21 +218,25 @@
 </template>
 <script>
     import axios from 'axios';
+    import g from './libs/global.js';
     import addGoods from './index/storehouse/addGoods.vue';
     import overview from './index/storehouse/overview.vue';
-    import allOp from './index/oprations/alloprations.vue';
-    import g from './libs/global.js';
+    import allOp from './index/oprations/alloprations.vue';    
     import overviewFinance from './index/finance/overviewfinance.vue';
     import allFi from './index/finance/allfinance.vue';
     import opFi from './index/finance/opfinance.vue';
     import queryFi from './index/finance/queryfinance.vue';
     import addPartner from './index/partner/addpartner.vue';
     import allPartner from './index/partner/allpartner.vue';
+    import userInfo from './index/user/edituser.vue';
     export default {
-        components:{addGoods,overview,allOp,overviewFinance,allFi,opFi,queryFi,addPartner,allPartner},
+        components:{addGoods,overview,allOp,overviewFinance,allFi,opFi,queryFi,addPartner,allPartner,userInfo},
         methods:{
             handleInfo(){
                 console.log("handleInfo");
+            },
+            handleUser(){
+                this.headerActive = "showuser"
             },
             handleLogout(){
                 console.log("单击 注销");

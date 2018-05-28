@@ -8,6 +8,42 @@ import  json
 # Create your views here.
 from .models import Account
 
+def getUser(request):
+    user = request.session.get('user',False)
+    user = user if user else Account.objects.get(id=1)
+    res = {
+            'user':user.account,
+            'phoneNumber':user.phoneNumber if user.phoneNumber else '',
+            'weixinNumber':user.weixinNumber if user.weixinNumber else '',
+            'qqNumber':user.qqNumber if user.qqNumber else '',
+            'mail':user.mail if user.mail else ''
+    }
+    return HttpResponse(json.dumps(res), content_type="application/json")
+
+def updateUser(request):
+    user = request.session.get('user', False)
+    user = user if user else Account.objects.get(id=1)
+    def update(obj):
+        print("obj[1]=",obj[1])
+        if obj[1] != False:
+            setattr(user,obj[0],obj[1])
+
+
+    data = {
+        'phoneNumber':request.POST.get('phoneNumber',False),
+        'qqNumber':request.POST.get('qqNumber',False),
+        'weixinNumber':request.POST.get('weixinNumber',False),
+        'mail':request.POST.get('mail',False),
+    }
+
+    list(map(update,data.items()))
+    print(data)
+    user.save()
+    res = {'success':True}
+    request.session['user'] = user
+    return HttpResponse(json.dumps(res), content_type="application/json")
+
+
 def dec_login(func):
     def wrapper(request,*args,**kw):
         if request.session.get("",False):
@@ -80,11 +116,16 @@ def Regist(request):
     print("---------------",request.POST)
     account = request.POST.get('account')
     password = request.POST.get('password')
+    mail = request.POST.get('mail')
+    qq = request.POST.get('qqNumber', '')
+    weixin = request.POST.get('weixinNumber', '')
+    mobile = request.POST.get('phone_number', '')
     q = Account.objects.filter(account=account)
     if q :
         return render(request,'register.html',{'repeatd':True})
     else:
-        newAccount=Account(account=account,password=password)
+
+        newAccount=Account(account=account,password=password,mail=mail,qqNumber=qq,weixinNumber=weixin,phoneNumber=mobile)
         newAccount.save()
         return  render(request,'login/login_.html',{'ok':True})
 
@@ -92,13 +133,17 @@ def RegistApi(request):
     print("---------------",request.POST)
     account = request.POST.get('account')
     password = request.POST.get('password')
+    mail = request.POST.get('mail')
+    qq = request.POST.get('qqNumber', '')
+    weixin = request.POST.get('weixinNumber', '')
+    mobile = request.POST.get('phoneNumber', '')
     q = Account.objects.filter(account=account)
     res = {"success":True,"err":None}
     if q :
         res["success"] = False
         res["err"] = "用户名重复"
     else:
-        newAccount=Account(account=account,password=password)
+        newAccount=Account(account=account,password=password,mail=mail,qqNumber=qq,weixinNumber=weixin,phoneNumber=mobile)
         newAccount.save()
     return  HttpResponse(json.dumps(res),content_type="application/json")
 
