@@ -1,14 +1,22 @@
 <template>
 
-    <Row>
-        <Col offset='4'>
-            <Table border height="600" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">
+    <Row >
+        <Col 
+        :xs="{offset:0}"
+        :sm="{offset:0}"
+        :md="{offset:4}"
+        :lg="{offset:4}"
+        >
+            <Table border :height="heightView" class="demo-table-info-row blue-theader" :style="tableStyle" :columns="columns1" :data="data1">
                 <div slot="footer">
                     <template>
                         <Row type="flex" justify="center">
                             <Col>
-                                <footpage :pageinfo="pageinfo" @pageGetPage="pageGetPage"></footpage>
+                                <footpage :pageinfo="pageinfo" @pageGetPage="pageGetPage" :isMobile="isMobile"></footpage>
                             </Col>
+                        </Row>
+                        <Row>
+
                         </Row>
                     </template>
                 </div>
@@ -27,10 +35,11 @@ import putout from './putoutGoods.vue';
 var number_width = 80;
  export default {
         components:{footpage,putin,putout},
-        props:['goodsPage','pid'],
+        props:['goodsPage','pid','isMobile'],
         data () {                        
-            return {                
-                columns1: [
+            return {      
+                       
+                columnsL: [
                     {
                         title: '商品名字',
                         key: 'name', 
@@ -91,12 +100,63 @@ var number_width = 80;
                         }
                     }
                 ],
+                columnsS:[
+                    {
+                        title: '商品名字',
+                        key: 'name', 
+                        width:90  ,
+                        fixed:'left'                    
+                    },
+                    
+                    {
+                        title: '进价',
+                        key: 'costprice',
+                        width:100,
+                    },
+                    {
+                        title: '售价',
+                        key: 'saleprice',
+                        width:100,                   
+                    },
+                    {
+                        title: '库存',
+                        key: 'initotal',
+                        width:100,
+                    },
+                    {
+                        title: '描述',
+                        key: 'desc',
+                        width:139
+                    },
+            
+                   
+                    {
+                        title: '操作',
+                        key: 'action',
+                        width: 80,
+                        fixed:'right',
+                        align: 'center',
+                        render: this.renderButton
+                    }
+                ],
                 data1:[],
                 pageinfo:{},
                 modal_show:false,
                 inputdata:[],
                 
                 // userid:this.changeUserId,
+            }
+        },
+        computed:{
+            columns1:function(){
+                return this.isMobile?this.columnsS:this.columnsL;
+            },
+            tableStyle:function(){
+                return this.isMobile ? {}:{};
+            },
+            heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
             }
         },
         created(){           
@@ -109,6 +169,67 @@ var number_width = 80;
                         });
         },
        methods:{
+           renderButton(h,params){
+
+                            let opButtonL =  h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '7px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.putinGoods(params.row)
+                                        }
+                                    }
+                                }, '入库'),
+                                h('Button', {
+                                    props: {
+                                        type: 'success',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () => {
+                                                    this.putoutGoods(params.row);
+                                        }
+                                    }
+                                }, '出库')
+                            ]);
+                             let opButtonS =  h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        margin: '5px 0px 10px 0px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.putinGoods(params.row)
+                                        }
+                                    }
+                                }, '入库'),                                
+                                h('Button', {
+                                    props: {
+                                        type: 'success',
+                                        size: 'small'
+                                    },
+                                     style: {
+                                        margin: '0px 0px 5px 0px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                                    this.putoutGoods(params.row);
+                                        }
+                                    }
+                                }, '出库')
+                            ]);
+                            return this.isMobile?opButtonS:opButtonL;
+           },
            updateTable(){
                axios.get([g.http,'/goods/get',"?page=",this.goodsPage].join('')).then(
                                                     (res)=>{

@@ -1,9 +1,9 @@
 <template>
-  <Page :current="pageinfo.current" :total="pageinfo.total" show-elevator show-total :page-size="pageinfo.size"  @on-change="getPage"></Page>
+  <Page :current="pageinfo.current" :total="pageinfo.total" :show-elevator="!isMobile" show-total :page-size="pageinfo.size"  @on-change="getPage"></Page>
 </template>
 <script>
 export default {
-  props:["pageinfo"],
+  props:["pageinfo","isMobile"],
   data(){
       return {
           data:[]

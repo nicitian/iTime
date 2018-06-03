@@ -1,8 +1,12 @@
 <template>
 
     <Row>
-        <Col offset='4'>
-            <Table border height="600" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">
+        <Col 
+        :xs="{offset:0}"
+        :sm="{offset:0}"
+        :md="{offset:4}"
+        :lg="{offset:4}">
+            <Table border :height="heightView" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">
                 <div slot="footer">
                     <template>
                         <Row type="flex" justify="center">
@@ -28,10 +32,10 @@ var min_num = 60;
 var max_num = 80;
  export default {
         components:{footpage},
-        props:['Page','pid'],
+        props:['Page','pid','isMobile'],
         data () {                        
-            return {                
-                columns1: [
+            return {                             
+                columnsL: [
                     {
                         title:'操作',
                         key:'opration',
@@ -67,12 +71,60 @@ var max_num = 80;
                        key:"datetime",
                    }
                 ],
+                columnsS: [
+                    {
+                        title:'操作',
+                        key:'opration',
+                        width:80,
+                        fixed:'left' 
+                    },
+                    {
+                        title: '商品名字',
+                        key: 'name', 
+                        width:100                
+                    },
+                    {
+                        title: '交易对象',
+                        key: 'partner', 
+                        width:100                      
+                    },
+                    {
+                        title: '进/售价',
+                        key: 'price',
+                        width:100,
+                        
+                    },
+                    {
+                        title: '数量',
+                        key: 'count',
+                        width:100,
+                    },
+                    {
+                        title: '总金额',
+                        key: 'totalprice',
+                        width:100
+                    },
+                   {
+                       title:"时间",
+                       key:"datetime",
+                       width:200,
+                   }
+                ],
                 data1:[],
                 pageinfo:{},
                 modal_show:false,
                 inputdata:[],
                 
                 // userid:this.changeUserId,
+            }
+        },
+        computed:{
+            columns1(){
+                return this.isMobile ? this.columnsS:this.columnsL;
+            },
+            heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
             }
         },
         created(){           

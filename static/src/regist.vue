@@ -11,11 +11,11 @@
                 <Content :style="{margin: '88px 20px 0', minHeight: '800px'}" >   
                     <Layout>
                         <Row type="flex" align="middle" :style="{minHeight:'700px'}">
-                            <Col span='4' offset='10'> 
+                            <Col :xs="{offset:2,span:18}" :md="{offset:10,span:4}"> 
                                 <Row>
                                     <Col>
                                         <p align="center" class='login-alert'>
-                                            请填写注册信息！
+                                            请填写注册信息
                                         </p>
                                     </Col>
                                 </Row>

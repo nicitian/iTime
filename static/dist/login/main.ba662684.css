@@ -49,6 +49,9 @@
   text-align: right;
   font-weight: bold;
 }
+.fixedinfo div li[data-v-f41eff92] {
+  text-align: left;
+}
 .fixedinfo div[data-v-f41eff92] {
   font-size-adjust: inherit;
 }
@@ -59,6 +62,9 @@
 .fixedinfo div[data-v-6eb95012]:first-of-type {
   text-align: right;
   font-weight: bold;
+}
+.fixedinfo div li[data-v-6eb95012] {
+  text-align: left;
 }
 .fixedinfo div[data-v-6eb95012] {
   font-size-adjust: inherit;

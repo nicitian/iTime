@@ -39,11 +39,14 @@ module.exports = merge(webpackBaseConfig, {
         new HtmlWebpackPlugin({
             // filename: '../../../login/templates/register_.html',
             // template: './src/template/regist.ejs',
+            // filename: '../../../login/templates/login/login_.html',
+            // template: './src/template/login.ejs',
             filename: '../../login/templates/index_.html',
             template: './src/template/index_prod.ejs',
             inject: false
         }),
         new CleanWebpackPlugin('dist/*.*', {
+            // new CleanWebpackPlugin('dist/login/*.*', {
         // new CleanWebpackPlugin('dist/regist/*.*', {
             root: __dirname,
             verbose: true,

@@ -1,4 +1,9 @@
 <style scoped>
+
+    .layout-header-bar{
+        background: #fff;
+        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    }
     .layout{
         border: 1px solid #ffffff;
         background: gray;
@@ -23,14 +28,54 @@
         margin: 0 auto;
         margin-right: 20px;
     }
+
+    .m-layout-nav{        
+        margin: 0px 5px;
+        padding: 0px 0px;
+        
+    }
+
     .layout-footer-center{
         text-align: center;
     }
+     .menu-item span{
+        display: inline-block;
+        overflow: hidden;
+        width: 69px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+        transition: width .2s ease .2s;
+    }
+    .menu-item i{
+        transform: translateX(0px);
+        transition: font-size .2s ease, transform .2s ease;
+        vertical-align: middle;
+        font-size: 16px;        
+    }
+    .collapsed-menu span{
+        width: 0px;
+        transition: width .2s ease;
+    }
+    .collapsed-menu i{
+        transform: translateX(5px);
+        transition: font-size .2s ease .2s, transform .2s ease .2s;
+        vertical-align: middle;
+        font-size: 22px;
+    }
+    .affix-menu-li li{
+        padding-right:10px;
+    }
 </style>
 <template>
-    <div >
-        <Layout class="layout">
-            <Header :style="{position: 'fixed', width: '100%'}" >
+    <Row>
+        <Col>
+        <Layout class="layout" v-model="isMobile">
+            <!-- <Header v-if="isMobile === true" :style="{width:'100%',padding:'0px 10px'}"> -->
+              
+            
+            <!-- </Header> -->
+            <Header v-if="isMobile === false" :style="[{position: 'fixed', width: '100%'}]" >
                 <Menu mode="horizontal" theme="dark" :active-name="headerActive">
                   <img  class="layout-logo"  :src="logoUrl" alt="logo" />
                   <div class="layout-nav">
@@ -60,23 +105,30 @@
                                     <DropdownItem @click.native="handleUser()">个人信息</DropdownItem>                                    
                                     <DropdownItem @click.native="handleLogout()">注销</DropdownItem>                                   
                                 </DropdownMenu>
-                            </Dropdown>
-                                 
+                            </Dropdown>                                 
                         </MenuItem>
                   </div>
                 </Menu>                                                   
-            </Header>  
+            </Header>              
                 <Layout v-if="headerActive === 'showuser'">
                     <user-info></user-info>
-                </Layout>             
+                </Layout>     
+
                 <Layout v-if="headerActive === 'hoursestore'">                    
-                    <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
-                        <Row :style="{margin: '64px 0px 0px'}">
-                        <Col span="16" offset="4">        
+                    <Content :style="layoutContent" >                              
+                        <Row :style="layoutContentRow">
+                        
+                        <!-- <Col span="16" offset="4">-->
+                        <Col 
+                        :xs="{span:24}"
+                        :sm="{span:24}"
+                        :md="{offset:4,span:16}"
+                        :lg="{offset:4,span:16}"                        
+                        >
                             <Layout >
                                 <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
-                                    <Menu :active-name="selected"  width="auto" >                    
+                                <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed" :style="{background: '#ffffff'}"  >
+                                    <Menu :active-name="selected"  width="auto" :class="menuitemClasses" >                    
                                         <MenuItem name="overview" @click.native="clickSider('overview')">
                                             <Icon type="ios-list"></Icon>
                                             <span>仓库概览</span>
@@ -89,11 +141,12 @@
                                             <Icon type="edit"></Icon>
                                             <span>编辑商品</span>
                                         </MenuItem> -->
-                                    </Menu>                                            
+                                    </Menu>            
+                                    <div slot="trigger"></div>                                
                                 </Sider>   
                                 <Content>
-                                    <add-goods @changeSider="clickSider" v-if="selected === 'add'" :userid="userid"></add-goods>
-                                    <overview @changeSider="clickSider" v-if="selected === 'overview'" :goodsPage="globalData.goodsPage" :pid="pid"></overview>
+                                    <add-goods @changeSider="clickSider" v-if="selected === 'add'" :userid="userid" :isMobile="isMobile"></add-goods>
+                                    <overview @changeSider="clickSider" v-if="selected === 'overview'" :goodsPage="globalData.goodsPage" :pid="pid" :isMobile="isMobile"></overview>
                                 </Content>
                             </Layout>
                             </Col>
@@ -102,12 +155,16 @@
                 </Layout>  
 
                 <Layout v-if="headerActive === 'oprations'">
-                     <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
-                        <Row :style="{margin: '64px 0px 0px'}">
-                            <Col span="18" offset="3">        
+                     <Content :style="layoutContent" >     
+                        <Row :style="layoutContentRow">
+                            <Col 
+                            :xs="{span:24}"
+                            :sm="{span:24}"
+                            :md="{offset:4,span:16}"
+                            :lg="{offset:4,span:16}">        
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                    <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
+                                    <Sider  hide-trigger breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed" :style="{background: '#ffffff'}"  >
                                         <Menu :active-name="selectedOpraions"  width="auto" >                    
                                             <MenuItem name="allOprations" @click.native="clickOprationsSider('allOprations')">
                                                 <Icon type="android-menu"></Icon>
@@ -124,8 +181,8 @@
                                         </Menu>                                            
                                     </Sider>   
                                     <Content>
-                                        <add-goods @changeSider="clickOprationsSider" v-if="selectedOpraions === 'queryOprations'" :userid="userid"></add-goods>
-                                        <all-op @changeSider="clickOprationsSider" v-if="selectedOpraions === 'allOprations'" :Page="globalData.goodschangePage" :pid="pid"></all-op>
+                                        <add-goods @changeSider="clickOprationsSider" v-if="selectedOpraions === 'queryOprations'" :userid="userid" :isMobile="isMobile"></add-goods>
+                                        <all-op @changeSider="clickOprationsSider" v-if="selectedOpraions === 'allOprations'" :Page="globalData.goodschangePage" :pid="pid" :isMobile="isMobile"></all-op>
                                     </Content>
                                 </Layout>
                             </Col>
@@ -134,13 +191,17 @@
                 </Layout>
 
                 <Layout v-if="headerActive === 'finance'">
-                     <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
-                        <Row :style="{margin: '64px 0px 0px'}">
-                            <Col span="18" offset="3">        
+                     <Content :style="layoutContent" >     
+                        <Row :style="layoutContentRow">
+                            <Col
+                            :xs="{span:24}"
+                            :sm="{span:24}"
+                            :md="{offset:4,span:16}"
+                            :lg="{offset:4,span:16}">        
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                    <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
-                                        <Menu :active-name="selectedOpraions"  width="auto" >
+                                    <Sider  hide-trigger breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed" :style="{background: '#ffffff'}"  >
+                                        <Menu :active-name="selectedOpraions"  width="auto" :class="menuitemClasses">
                                             <MenuItem name="allFinance" @click.native="clickFinanceSider('allFinance')">
                                                 <Icon type="android-menu"></Icon>
                                                 <span>所有财务记录</span>
@@ -176,13 +237,17 @@
                 </Layout>
 
                 <Layout v-if="headerActive === 'partner'">
-                     <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >     
-                        <Row :style="{margin: '64px 0px 0px'}">
-                            <Col span="18" offset="3">        
+                     <Content :style="layoutContent" >     
+                        <Row :style="layoutContentRow">
+                            <Col
+                                :xs="{span:24}"
+                                :sm="{span:24}"
+                                :md="{offset:4,span:16}"
+                                :lg="{offset:4,span:16}">           
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
-                                    <Sider hide-trigger breakpoint="md" :style="{background: '#ffffff'}"  >
-                                        <Menu :active-name="selectedOpraions"  width="auto" >
+                                    <Sider  hide-trigger breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed" :style="{background: '#ffffff'}"  >
+                                        <Menu :active-name="selectedOpraions"  width="auto"  >
                                             <MenuItem name="allPartner" @click.native="clickPartnerSider('allPartner')">
                                                 <Icon type="android-menu"></Icon>
                                                 <span>所有伙伴</span>
@@ -209,12 +274,59 @@
                         </Row>
                     </Content>
                 </Layout>
+            
+              
+            <Footer v-if="isMobile === false" class="layout-footer-center">2018-2020 &copy; ITime</Footer>
+           
+            <Affix :offset-top="heightView-60" :offset-bottom="0" v-if="isMobile === true" :style="{width:'100%'}">
+                    <Menu 
+                    ref="side_menu"
+                    mode="horizontal" 
+                    theme="dark" 
+                    :active-name="headerActive" 
+                    @on-select="onSelect"
+                    @on-open-change="onOpenChange"
+                    class="affix-menu-li">                        
+                        <MenuItem name="oprations" @click.native="clickHeader('oprations')" >
+                            <Icon type="ios-navigate"></Icon>
+                            最近操作
+                        </MenuItem>
+                        <!-- <MenuItem name="hoursestore" @click.native="clickStoreHouse()">
+                            <Icon type="ios-keypad"></Icon>
+                            仓库
+                        </MenuItem> -->
 
+                        <Submenu name="hoursestore">
+                            <template slot="title">
+                                <Icon type="ios-keypad"></Icon>
+                                仓库
+                            </template>    
+                            <MenuGroup title="选项" >                        
+                                <MenuItem name="overview" @click.native="clickStoreHourseSider('overview')">
+                                    <Icon type="ios-list" ></Icon>
+                                    <span>仓库概览</span>
+                                </MenuItem>
+                                <MenuItem name="add" @click.native="clickStoreHourseSider('add')">
+                                    <Icon type="android-add"></Icon>
+                                    <span>添加商品</span>
+                                </MenuItem>   
+                            </MenuGroup>                        
+                        </Submenu>
 
+                        <MenuItem name="finance" @click.native="clickHeader('finance')">
+                            <Icon type="stats-bars"></Icon>
+                            财务
+                        </MenuItem>
+                        <MenuItem name="partner" @click.native="clickHeader('partner')">                          
+                            <Icon type="ios-people"></Icon>
+                            合作伙伴
+                        </MenuItem>                        
+                  </Menu>
+                </Affix>                
             </Layout>
-            <Footer class="layout-footer-center">2018-2020 &copy; ITime</Footer>
-
-    </div>
+        </Col>        
+    </Row>
+    
 </template>
 <script>
     import axios from 'axios';
@@ -229,8 +341,25 @@
     import addPartner from './index/partner/addpartner.vue';
     import allPartner from './index/partner/allpartner.vue';
     import userInfo from './index/user/edituser.vue';
+    
     export default {
         components:{addGoods,overview,allOp,overviewFinance,allFi,opFi,queryFi,addPartner,allPartner,userInfo},
+        mounted(){
+            // let open_names = Cookies.getJSON('menu_opennames');
+            // let active_name = Cookies.getJSON('active_name');
+            // if(open_names || active_name){
+            //     this.openNames = open_names || [];
+            //     this.activeName = active_name || 0;
+            //     this.$nextTick(()=>{
+            //         this.$refs.side_menu.updateOpened();
+            //         this.$refs.side_menu.updateActiveName()
+            //     })
+            // }
+            this.$nextTick(()=>{
+                    this.$refs.side_menu.updateOpened();
+                    this.$refs.side_menu.updateActiveName()
+                })
+        },
         methods:{
             handleInfo(){
                 console.log("handleInfo");
@@ -257,18 +386,33 @@
             clickPartnerSider(name){
                 this.selectedPartner = name;
             },
+            clickStoreHourseSider(name)
+            {
+                this.headerActive = 'hoursestore';
+                this.selected = name;
+                
+            },
             clickStoreHouse(){
                 console.log("trgger clickStoreHouse");
                 this.headerActive = 'hoursestore'
                 this.selected = 'overview';
             },
-            clickSider(res,goodsPage=this.globalData.goodsPage){                
-                this.selected = res;    
+     
+            clickSider(res,goodsPage=this.globalData.goodsPage){   
+                console.log('click=',res)  ;           
+                this.selected = res;                    
                 this.globalData.goodsPage = goodsPage;         
             }
         },
         data(){
-            return {
+            return {              
+               isMobile:window.innerWidth >= 992 ? false :true,
+                xs:768,
+                sm:992,
+                md:1200,
+                isCollapsed:false,
+                withView:window.innerWidth,
+                heightView:window.innerHeight,
                 name:"……",
                 pid:1,
                 logoUrl:'../static/images/logo1.png',
@@ -282,11 +426,34 @@
                     goodschangePage:'1',
                     queryFinancePage:'1',
 
-                }
-                
+                }                
+            }
+        },      
+         computed: {  
+            layoutContent:function(){
+                let mdStyle = {margin: '88px 20px 0', minHeight: '500px'}
+                let smStyle = {margin: '0px 0px 0px', minHeight: '80%'}
+                // <Content :style="{margin: '88px 20px 0', minHeight: '500px'}" >                              
+                //         <Row :style="{margin: '64px 0px 0px'}">
+                return this.isMobile?smStyle:mdStyle;
+            }   ,       
+            layoutContentRow:function(){
+                let mdStyle = {margin: '64px 0px 0px'}
+                let smStyle = {margin: '0px 0px 0px'}
+                return this.isMobile?smStyle:mdStyle;
+            },
+            menuitemClasses: function () {
+                return [
+                    'menu-item',
+                    this.isCollapsed ? 'collapsed-menu' : ''
+                ]
             }
         },
         created(){
+            
+
+            
+
             axios.get([g.http,"/login/getS?name=account"].join('')).then(res=>{
                                                                                 console.log('account-get',res.data);
                                                                                 this.name = res.data.name;

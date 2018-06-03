@@ -8,9 +8,12 @@ module.exports = {
         vendors: './src/vendors'
         // main: './src/regist',
         // vendors: './src/vendors'
+        // main: './src/login',
+        // vendors: './src/vendors'
     },
     output: {
         // path: path.join(__dirname, './dist/regist')
+        // path: path.join(__dirname, './dist/login')
         path: path.join(__dirname, './dist')
     },
     module: {

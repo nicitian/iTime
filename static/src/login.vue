@@ -44,11 +44,11 @@
                 <Content :style="{margin: '88px 20px 0', minHeight: '800px'}" >   
                     <Layout>
                         <Row type="flex" align="middle" :style="{minHeight:'700px'}">
-                            <Col span='4' offset='10'>
+                            <Col :xs="{offset:2,span:20}" :md="{offset:10,span:4}">
                                 <Row>
                                     <Col>
                                         <p align="center" class='login-alert'>
-                                            欢迎登录！
+                                            欢迎登录
                                         </p>
                                     </Col>
                                 </Row>

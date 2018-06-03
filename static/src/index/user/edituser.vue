@@ -6,7 +6,7 @@
                                 <Row>
                                     <Col>
                                         <p align="center" class='login-alert'>
-                                            个人信息！
+                                            个人信息
                                         </p>
                                     </Col>
                                 </Row>
@@ -150,6 +150,6 @@ export default {
         .login-alert{
         font-family: "PingFang SC";
         font-size: 2em;
-        color:#2d8cf0;        
+        color:#5cadff;        
     }
 </style>

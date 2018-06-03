@@ -17,7 +17,7 @@ def PartnerCreate(request):
     name = request.POST.get('name', None)
     querys = Partner.objects.filter(name=name)
     if querys:
-        res = {"success": False, "err": "名字重复"}
+        res = {"success": False, "err": "合作伙伴名字重复！"}
     else:
         res = {"success": True, "err": None}
         address = request.POST.get('address')
