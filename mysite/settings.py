@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')9_1wp*el(k1k41hxps_x8f+!f=zqn1^0jyl-v@6wngv&hag)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['47.104.224.45','localhost','127.0.0.0','39.108.3.28']
+ALLOWED_HOSTS = ['47.104.224.45','localhost','127.0.0.0','39.108.3.28','yaonitian.top','www.yaonitian.top']
 
 
 # Application definition
