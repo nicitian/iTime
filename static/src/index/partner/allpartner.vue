@@ -1,8 +1,11 @@
 <template>
 
     <Row>
-        <Col offset='4'>
-            <Table border height="600" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">
+        <Col 
+            :sm="{offset:0}"
+            :md="{offset:4}"
+            >
+            <Table border :height="heightView" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">
                 <div slot="footer">
                     <template>
                         <Row type="flex" justify="center">
@@ -28,10 +31,10 @@ var min_num = 60;
 var max_num = 80;
  export default {
         components:{footpage},
-        props:['Page','pid'],
+        props:['Page','pid','isMobile'],
         data () {                        
             return {                
-                columns1: [
+                columnsL: [
                     {
                         title:'名字',
                         key:'name',
@@ -67,12 +70,67 @@ var max_num = 80;
                        key:"remark",
                    }
                 ],
+                 columnsS: [
+                    {
+                        title:'名字',
+                        key:'name',
+                        fixed:'left',
+                        width:100
+                    },
+                    {
+                        title: '合作关系',
+                        key: 'relative', 
+                        width:100                      
+                    },
+                    {
+                        title: '商品',
+                        key: 'goods',
+                        width:100     
+                        
+                    },
+                    {
+                        title: '负责人',
+                        key: 'charge_person',
+                        width:100  ,
+                    },
+                    {
+                        title: '联系方式',
+                        key: 'phone_number',
+                        width:150
+                    },
+                   {
+                       title:"地址",
+                       key:"address",
+                       width:200
+                   }
+                   ,
+                   {
+                       title:"备注",
+                       key:"remark",
+                       width:200
+                   }
+                ],
                 data1:[],
                 pageinfo:{},
                 modal_show:false,
                 inputdata:[],
                 
                 // userid:this.changeUserId,
+            }
+        },
+        computed:{
+            columns1:function(){
+                return this.isMobile?this.columnsS:this.columnsL;
+            },
+            rowStyle(){
+                return this.isMobile ? {
+                    height:[this.rowHight,'px'].join(''), 
+                    paddingTop:"100px"                   
+                }:{}
+            },
+            heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
             }
         },
         created(){           

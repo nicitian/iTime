@@ -60,7 +60,9 @@
   font-size: 22px;
 }
 .affix-menu-li li[data-v-682d8714] {
-  padding-right: 10px;
+  width: 80px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .ivu-table div.ivu-table-cell {

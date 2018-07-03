@@ -1,43 +1,76 @@
 <template>
-    <Row>
-        <Col span="12" offset="4">
-            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-
-                <FormItem label="操作类型" prop="type">
-                    <!-- <Input v-model="formValidate.initotal" placeholder="请填入初始库存"></Input> -->
-                    <Select v-model="formValidate.type" style="width:80px">
-                        <Option v-for="item in formValidate.types" :value="item.value" :key="item.value">{{item.label}}</Option>            
-                    </Select>
-                </FormItem>
-                <Row>
-                    <Col span="4">
-                        <FormItem label="交易对象"  prop="partner">                        
-                            <Select 
-                                v-model="formValidate.partner"                                
-                                filterable
-                                remote
-                                :remote-method="partnerRemote"
-                                :loading="formValidate.partnerLoading"
-                                placeholder="请输入伙伴名并选择"
-                                style="width:220px">
-                                <Option v-for="item in formValidate.partners" :value="item.id" :key="item.id">{{item.value}}</Option>            
-                            </Select>
-                        </FormItem>
-                    </Col>
-                </Row>
-                <FormItem label="金额" prop="finance">
-                    <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
-                    <Input-number   v-model="formValidate.finance" placeholder="请填入总资金"></Input-number>
-                </FormItem>
+    <Row :style="{height:heightView+'px'}">
+        <Col 
+            :sm="{span:18,offset:3}"
+            :md="{span:12,offset:4}"
+            >
+            <Card :style="{height:heightView+'px'}">
+                <p slot="title"> 财务操作 </p>
+                <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+                    <Row>
+                        <Col
+                            :sm="{span:10}" 
+                            :md="{span:12}"
+                            >
+                            <FormItem label="操作类型" prop="type">
+                                <!-- <Input v-model="formValidate.initotal" placeholder="请填入初始库存"></Input> -->
+                                <Select v-model="formValidate.type" >
+                                    <Option v-for="item in formValidate.types" :value="item.value" :key="item.value">{{item.label}}</Option>            
+                                </Select>
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col 
+                            :sm="{span:10}" 
+                            :md="{span:12}">
+                            <FormItem label="交易对象"  prop="partner">                        
+                                <Select 
+                                    v-model="formValidate.partner"                                
+                                    filterable
+                                    remote
+                                    :remote-method="partnerRemote"
+                                    :loading="formValidate.partnerLoading"
+                                    placeholder="请输入伙伴名并选择"
+                                    >
+                                    <!-- style="width:220px"> -->
+                                    <Option v-for="item in formValidate.partners" :value="item.id" :key="item.id">{{item.value}}</Option>            
+                                </Select>
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col 
+                            :sm="{span:12}"
+                            :md="{span:12}">
+                            <FormItem label="金额" prop="finance">
+                                <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
+                                <Input-number   v-model="formValidate.finance" placeholder="请填入总资金"></Input-number>
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col
+                            :sm="{span:14}"
+                            :md="{span:18}">
+                            <FormItem label="修改原因" prop="reason">
+                                <Input v-model="formValidate.reason" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入修改财务的理由"></Input>
+                            </FormItem>
+                        </Col>
+                    </Row>
                 
-                <FormItem label="修改原因" prop="reason">
-                    <Input v-model="formValidate.reason" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入修改财务的理由"></Input>
-                </FormItem>
-                <FormItem>
-                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                </FormItem>
-            </Form>
+                    <FormItem>
+                        <Row type="flex" :justify="isMobile?'between-space':'left'">
+                            <Col >
+                                <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+                            </Col>                                       
+                            <Col>
+                                <Button type="ghost" @click="handleReset('formValidate')">重置</Button>
+                            </Col>
+                        </Row>
+                    </FormItem>
+                </Form>
+            </Card>
         </Col>
     </Row>
 </template>
@@ -50,7 +83,7 @@
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     export default {
-        props:['pid'],
+        props:['pid','isMobile'],
         data () {
             return {
                 formValidate: {
@@ -85,6 +118,12 @@
                     ]
                 }
 
+            }
+        },
+        computed:{
+            heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
             }
         },
         methods: {

@@ -1,21 +1,25 @@
 <template>
-    <Row>
-        <Col span="12" offset="4">
-            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-                
-                <FormItem label="总资金" prop="finance">
-                    <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
-                    <Input-number readonly  v-model="formValidate.finance" placeholder="请填入总资金"></Input-number>
-                </FormItem>
-                <FormItem label="总收入" prop="income">
-                    <!-- <Input v-model="formValidate.saleprice" placeholder="请填入产品售价"></Input> -->
-                    <Input-number  readonly type="number"  v-model="formValidate.income" placeholder="请填入总收入"></Input-number>
-                </FormItem>
-                <FormItem label="总支出" prop="cost">
-                    <!-- <Input v-model="formValidate.initotal" placeholder="请填入初始库存"></Input> -->
-                    <Input-number readonly v-model="formValidate.cost" placeholder="请填入总支出"></Input-number>
-                </FormItem>
-                
+    <Row :style="{height:heightView+'px'}">
+        <Col 
+            :sm="{span:18,offset:3}"
+            :md="{span:12,offset:4}">
+            <Card :style="{height:heightView+'px'}">
+                <p slot="title">财务总览</p>
+                <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+                    
+                    <FormItem label="总资金" prop="finance">
+                        <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
+                        <Input-number readonly  v-model="formValidate.finance" placeholder="请填入总资金"></Input-number>
+                    </FormItem>
+                    <FormItem label="总收入" prop="income">
+                        <!-- <Input v-model="formValidate.saleprice" placeholder="请填入产品售价"></Input> -->
+                        <Input-number  readonly type="number"  v-model="formValidate.income" placeholder="请填入总收入"></Input-number>
+                    </FormItem>
+                    <FormItem label="总支出" prop="cost">
+                        <!-- <Input v-model="formValidate.initotal" placeholder="请填入初始库存"></Input> -->
+                        <Input-number readonly v-model="formValidate.cost" placeholder="请填入总支出"></Input-number>
+                    </FormItem>
+            
                 <!-- <FormItem label="修改原因" prop="reason">
                     <Input v-model="formValidate.reason" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入修改财务的理由"></Input>
                 </FormItem>
@@ -23,7 +27,8 @@
                     <Button type="primary" @click="handleSubmit('formValidate')">修改</Button>
                     <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
                 </FormItem> -->
-            </Form>
+                </Form>
+            </Card>        
         </Col>
     </Row>
 </template>
@@ -36,6 +41,7 @@
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     export default {
+         props:['isMobile'],
         data () {
             return {
                 formValidate: {
@@ -64,6 +70,12 @@
                     ]
                 }
 
+            }
+        },
+        computed:{
+            heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
             }
         },
           created(){           

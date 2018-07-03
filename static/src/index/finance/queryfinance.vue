@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <Row>
+        <Row v-if="isMobile === false" >
             <Col offset="4">
                 <Row type="flex" justify="space-between">
                     <Col span='5'>
@@ -25,32 +25,108 @@
                 </Row>
             </Col>
         </Row>
-        <Row>
-            <Col offset='4'>
-                <Table border height="600" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">
-                    <div slot="footer" style="{height:300px}"> 
-                        <template>                            
-                            <Row type="flex" justify="space-between">
-                                <Col push='1'> 
-                                    <Row class="footer-text" type="flex" justify="space-between" :gutter="16">   
+        <Row :style="{height:heightView+'px'}">
+            <Col 
+                :xs="{offset:0}"
+                :sm="{offset:0}"
+                :md="{offset:4}"
+                :lg="{offset:4}">
+                <Row v-if="isMobile" type="flex">
+                    <Col span="12" >
+                        <DatePicker @on-change="changeStartdate" v-model="startdate" transfer type="date" format="yyyy-MM-dd"  placeholder="开始日期" ></DatePicker>
+                    </Col>
+                    <Col span="12">
+                        <DatePicker @on-change="changeEnddate" v-model="enddate" transfer  type="date"  format="yyyy-MM-dd" placeholder="结束日期" ></DatePicker>
+                    </Col>
+                </Row>
+                <Row v-if="isMobile" type="flex">
+                   
+                    <Col span="12">                                                
+                        <Select v-model="opt"  placeholder="操作">
+                                <Option v-for="item in opts" :value="item.value" :key="item.value">{{item.label}}</Option>            
+                        </Select>
+                    </Col>
+                    
+                    <Col span="12">                                                
+                        <Select v-model="type"  placeholder="类型">
+                                <Option v-for="item in types" :value="item.value" :key="item.value">{{item.label}}</Option>            
+                        </Select>
+                    </Col>
+                </Row>
+                <Row v-if="isMobile" type="flex" justify="space-between">
+                    <Col span="24">
+                        <Button type="primary" @click="handleQuery()">查询</Button>
+                    </Col>
+                </Row>
+                <Row >
+                    <Col>
+                        <Table border  class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">                            
+                            <div slot="footer" style="{height:300px}"> 
+                                <template>                            
+                                    <Row v-if="isMobile === false" type="flex" justify="space-between">
+                                        <Col push='1'> 
+                                            <Row class="footer-text" type="flex" justify="space-between" :gutter="16">   
+                                                <Col>                                                    
+                                                    <p>总资金：{{total.finance}} </p>
+                                                </Col>
+                                                <Col>
+                                                    <p>总收入:{{total.income}}</p>
+                                                </Col>
+                                                <Col >
+                                                    <p>总支出：{{total.cost}}</p>
+                                                </Col>
+                                            </Row>                            
+                                        </Col>
+                                        <Col pull='1'>
+                                            <footpage :pageinfo="pageinfo" @pageGetPage="pageGetPage"></footpage>
+                                        </Col>                                
+                                    </Row>                                                                                                                                        
+
+                                    <Row v-if="isMobile" type="flex" justify="center">
                                         <Col>
-                                            <p>总资金：{{total.finance}} </p>
+                                            <footpage :pageinfo="pageinfo" @pageGetPage="pageGetPage"></footpage>
                                         </Col>
-                                        <Col>
-                                            <p>总收入:{{total.income}}</p>
-                                        </Col>
-                                        <Col >
-                                            <p>总支出：{{total.cost}}</p>
-                                        </Col>
-                                    </Row>                            
-                                </Col>
-                                <Col pull='1'>
-                                    <footpage :pageinfo="pageinfo" @pageGetPage="pageGetPage"></footpage>
-                                </Col>                                
-                            </Row>                                                                                                                                        
-                        </template>                                     
-                    </div>     
-                </Table>
+                                    </Row>
+
+                                </template>                                     
+                            </div>     
+                        </Table>
+                    </Col>
+                </Row>
+                <Row v-if="isMobile" type="flex" justify="center">
+                    <Col span='6'>
+                        <Row type="flex" justify=center>
+                            <label> 总资金</label>                         
+                            <InputNumber 
+                            v-model="total.finance" 
+                            readonly                         
+                            :formatter="value => `￥ ${value}`.replace(/B(?=(d{3})+(?!d))/g, ',')"
+                            :parser="value => value.replace(/$s?|(,*)/g, '')"></InputNumber>
+                        </Row>
+                    </Col>
+                    <Col span='6'>
+                        
+                        <Row type="flex" justify=center>
+                            <label> 总收入</label>                         
+                            <InputNumber 
+                            v-model="total.income" 
+                            readonly                         
+                            :formatter="value => `￥ ${value}`.replace(/B(?=(d{3})+(?!d))/g, ',')"
+                            :parser="value => value.replace(/$s?|(,*)/g, '')"></InputNumber>
+                        </Row>
+                    </Col>
+                    <Col span='6'>                        
+                        <Row type="flex" justify=center>
+                            <label> 总支出：</label>                         
+                            <InputNumber 
+                            v-model="total.cost" 
+                            readonly                         
+                            :formatter="value => `￥ ${value}`.replace(/B(?=(d{3})+(?!d))/g, ',')"
+                            :parser="value => value.replace(/$s?|(,*)/g, '')"></InputNumber>
+                        </Row>
+                    </Col>
+
+                </Row>
             </Col>
         </Row>
     </Layout>
@@ -67,16 +143,20 @@ var min_num = 60;
 var max_num = 80;
  export default {
         components:{footpage},
-        props:['Page','pid'],
+        props:['Page','pid','isMobile'],
         data () {                        
-            return {  
-                columns1: [
+            return {                 
+                columnsL: [
                     {
                         title:'操作',
                         key:'op_type',
                         width:100
                     },
-                                    
+                    {
+                        title:'交易对象',
+                        key:'partner',
+                        width:100
+                    },               
                     {
                         title: '金额',
                         key: 'money', 
@@ -91,7 +171,6 @@ var max_num = 80;
                         title: '备注',
                         key: 'remark',
                        
-                        
                     },
                     {
                         title: '操作人员',
@@ -102,6 +181,44 @@ var max_num = 80;
                        title:"时间",
                        key:"datetime",
                        width:150
+                   }
+                ],
+                columnsS: [
+                    {
+                        title:'操作',
+                        key:'op_type',
+                        width:80,
+                        fixed:'left'
+                    },     
+                    {
+                        title:'交易对象',
+                        key:'partner',
+                        width:100
+                    },               
+                    {
+                        title: '金额',
+                        key: 'money', 
+                        width:100                      
+                    },
+                     {
+                        title:'类型',
+                        key:'re_type',
+                        width:100
+                    },
+                    {
+                        title: '备注',
+                        key: 'remark', 
+                        width:200                                           
+                    },
+                    {
+                        title: '操作人员',
+                        key: 'change_people',
+                        width:150
+                    },
+                   {
+                       title:"时间",
+                       key:"datetime",
+                       width:200
                    }
                 ],
                 frURL:'/finance/financerecords/get',
@@ -147,51 +264,27 @@ var max_num = 80;
                                 value:'所有',
                                 label:'所有'
                             }
-                    ],
-                columns1: [
-                    {
-                        title:'操作',
-                        key:'op_type',
-                        width:100
-                    },    
-                    {
-                        title:'交易对象',
-                        key:'partner',
-                        width:100
-                    },                
-                    {
-                        title: '金额',
-                        key: 'money', 
-                        width:100                      
-                    },
-                     {
-                        title:'类型',
-                        key:'re_type',
-                        width:100
-                    },
-                    {
-                        title: '备注',
-                        key: 'remark',
-                       
-                        
-                    },
-                    {
-                        title: '操作人员',
-                        key: 'change_people',
-                        width:150
-                    },
-                   {
-                       title:"时间",
-                       key:"datetime",
-                       width:150
-                   }
-                ],
+                    ],               
                 data1:[],
                 pageinfo:{},
                 modal_show:false,
                 inputdata:[],
                 
                 // userid:this.changeUserId,
+            }
+        },
+        
+        computed:{      
+            columns1(){
+                return this.isMobile ? this.columnsS:this.columnsL;
+            },     
+            widthView(){
+                let width = window.innerWidth
+                return {width:width+"px"}
+            }   ,  
+            heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
             }
         },
         created(){    

@@ -1,41 +1,48 @@
 <template>
-    <Row :style="rowStyle">
+
+    <Row >
         <!-- <Col span="12" offset="4"> -->
-        <Col :xs="{offset:2,span:18}" :md="{offset:10,span:4}"> 
-            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+        
+            <Col :sm="{offset:2,span:18}" :md="{offset:6,span:10}"> 
                 
-                <Row>
-                    <Col 
-                        :xs="{span:18}"
-                        :md="{span:12}">
-                        <FormItem label="商品名字" prop="name">
-                            <Input v-model="formValidate.name" placeholder="请输入商品名字"></Input>
+                    <Card :style="rowStyle">
+                        <p slot="title">添加商品</p>  
+                    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+                        
+                        <Row>
+                            <Col 
+                                :xs="{span:18}"
+                                :md="{span:12}">
+                                <FormItem label="商品名字" prop="name">
+                                    <Input v-model="formValidate.name" placeholder="请输入商品名字"></Input>
+                                </FormItem>
+                            </Col>
+                        </Row>
+                        <FormItem label="进价" prop="costprice">
+                            <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
+                            <Input-number  :min="0" v-model="formValidate.costprice" placeholder="请填入产品进价"></Input-number>
                         </FormItem>
-                    </Col>
-                </Row>
-                <FormItem label="进价" prop="costprice">
-                    <!-- <Inputnumber v-model="formValidate.costprice" placeholder="请填入产品进价"></Input> -->
-                    <Input-number  :min="0" v-model="formValidate.costprice" placeholder="请填入产品进价"></Input-number>
-                </FormItem>
-                <FormItem label="售价" prop="saleprice">
-                    <!-- <Input v-model="formValidate.saleprice" placeholder="请填入产品售价"></Input> -->
-                    <Input-number  type="number" :min="0" v-model="formValidate.saleprice" placeholder="请填入产品售价"></Input-number>
-                </FormItem>
-                <FormItem label="初始库存" prop="initotal">
-                    <!-- <Input v-model="formValidate.initotal" placeholder="请填入初始库存"></Input> -->
-                    <Input-number  :min="0" v-model="formValidate.initotal" placeholder="请填入初始库存"></Input-number>
-                </FormItem>
-                
-                <FormItem label="描述" prop="desc">
-                    <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入商品描述"></Input>
-                </FormItem>
-                <FormItem>
-                    <Button type="primary" @click="handleSubmit('formValidate')">添加</Button>
-                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                </FormItem>
-            </Form>
-        </Col>
+                        <FormItem label="售价" prop="saleprice">
+                            <!-- <Input v-model="formValidate.saleprice" placeholder="请填入产品售价"></Input> -->
+                            <Input-number  type="number" :min="0" v-model="formValidate.saleprice" placeholder="请填入产品售价"></Input-number>
+                        </FormItem>
+                        <FormItem label="初始库存" prop="initotal">
+                            <!-- <Input v-model="formValidate.initotal" placeholder="请填入初始库存"></Input> -->
+                            <Input-number  :min="0" v-model="formValidate.initotal" placeholder="请填入初始库存"></Input-number>
+                        </FormItem>
+                        
+                        <FormItem label="描述" prop="desc">
+                            <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入商品描述"></Input>
+                        </FormItem>
+                        <FormItem>
+                            <Button type="primary" @click="handleSubmit('formValidate')">添加</Button>
+                            <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
+                        </FormItem>
+                    </Form>
+                    </Card>
+            </Col>       
     </Row>
+
 </template>
 <script>
     import axios from 'axios';
@@ -84,8 +91,8 @@
            
             rowStyle(){
                 return this.isMobile ? {
-                    height:[this.rowHight,'px'].join(''), 
-                    paddingTop:"100px"                   
+                    height:[this.rowHight,'px'].join('')
+                                      
                 }:{}
             }
         },

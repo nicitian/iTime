@@ -64,8 +64,11 @@
         font-size: 22px;
     }
     .affix-menu-li li{
-        padding-right:10px;
+        width:80px;     
+        padding-left:0px;
+        padding-right:0px;  
     }
+
 </style>
 <template>
     <Row>
@@ -128,7 +131,7 @@
                             <Layout >
                                 <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
                                 <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed" :style="{background: '#ffffff'}"  >
-                                    <Menu :active-name="selected"  width="auto" :class="menuitemClasses" >                    
+                                    <Menu :active-name="selected"  width="auto" :class="menuitemClasses" class="isMobile" >                    
                                         <MenuItem name="overview" @click.native="clickSider('overview')">
                                             <Icon type="ios-list"></Icon>
                                             <span>仓库概览</span>
@@ -201,10 +204,11 @@
                                 <Layout >
                                     <!-- <Sider hide-trigger breakpoint="md" collapsible :collapsed-width="78"  v-model="isCollapsed"> -->
                                     <Sider  hide-trigger breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed" :style="{background: '#ffffff'}"  >
-                                        <Menu :active-name="selectedOpraions"  width="auto" :class="menuitemClasses">
+                                        <!-- <Menu :active-name="selectedOpraions"  width="auto" :class="menuitemClasses"> -->
+                                        <Menu :active-name="selectedOpraions"  width="auto">
                                             <MenuItem name="allFinance" @click.native="clickFinanceSider('allFinance')">
                                                 <Icon type="android-menu"></Icon>
-                                                <span>所有财务记录</span>
+                                                <span>所有财务</span>
                                             </MenuItem>     
                                             <MenuItem name="overviewFinance" @click.native="clickFinanceSider('overviewFinance')">
                                                 <Icon type="android-open"></Icon>
@@ -225,10 +229,10 @@
                                         </Menu>                                            
                                     </Sider>   
                                     <Content>
-                                        <overview-finance @changeSider="clickFinanceSider" v-if="selectedFinance === 'overviewFinance'" :userid="userid"></overview-finance>
-                                        <query-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'queryFinance'" :page="globalData.queryFinancePage" :userid="userid"></query-fi>
-                                        <all-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'allFinance'" :Page="globalData.goodschangePage" :pid="pid"></all-fi>
-                                        <op-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'opFinance'" :Page="globalData.goodschangePage" :pid="pid"></op-fi>
+                                        <overview-finance @changeSider="clickFinanceSider" v-if="selectedFinance === 'overviewFinance'" :userid="userid" :isMobile="isMobile"></overview-finance>
+                                        <query-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'queryFinance'" :page="globalData.queryFinancePage" :userid="userid" :isMobile="isMobile"></query-fi>
+                                        <all-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'allFinance'" :Page="globalData.goodschangePage" :pid="pid" :isMobile="isMobile"></all-fi>
+                                        <op-fi @changeSider="clickFinanceSider" v-if="selectedFinance === 'opFinance'" :Page="globalData.goodschangePage" :pid="pid" :isMobile="isMobile"></op-fi>
                                     </Content>
                                 </Layout>
                             </Col>
@@ -266,8 +270,8 @@
                                         <!-- <overview-finance @changeSider="clickPartnerSider" v-if="selectedFinance === 'overviewFinance'" :userid="userid"></overview-finance>
                                         <query-fi @changeSider="clickPartnerSider" v-if="selectedFinance === 'queryFinance'" :page="globalData.queryFinancePage" :userid="userid"></query-fi>
                                         <all-fi @changeSider="clickPartnerSider" v-if="selectedFinance === 'allFinance'" :Page="globalData.goodschangePage" :pid="pid"></all-fi> -->
-                                        <add-partner @changeSider="clickPartnerSider" v-if="selectedPartner === 'addPartner'" :Page="globalData.goodschangePage" :pid="pid"></add-partner>
-                                        <all-partner @changeSider="clickPartnerSider" v-if="selectedPartner === 'allPartner'" :Page="globalData.goodschangePage" :pid="pid"></all-partner>
+                                        <add-partner @changeSider="clickPartnerSider" v-if="selectedPartner === 'addPartner'" :Page="globalData.goodschangePage" :pid="pid" :isMobile="isMobile"></add-partner>
+                                        <all-partner @changeSider="clickPartnerSider" v-if="selectedPartner === 'allPartner'" :Page="globalData.goodschangePage" :pid="pid" :isMobile="isMobile"></all-partner>
                                     </Content>
                                 </Layout>
                             </Col>
@@ -280,47 +284,97 @@
            
             <Affix :offset-top="heightView-60" :offset-bottom="0" v-if="isMobile === true" :style="{width:'100%'}">
                     <Menu 
-                    ref="side_menu"
+                    ref="sidemenu"
                     mode="horizontal" 
                     theme="dark" 
                     :active-name="headerActive" 
-                    @on-select="onSelect"
-                    @on-open-change="onOpenChange"
-                    class="affix-menu-li">                        
-                        <MenuItem name="oprations" @click.native="clickHeader('oprations')" >
-                            <Icon type="ios-navigate"></Icon>
-                            最近操作
-                        </MenuItem>
-                        <!-- <MenuItem name="hoursestore" @click.native="clickStoreHouse()">
-                            <Icon type="ios-keypad"></Icon>
-                            仓库
-                        </MenuItem> -->
-
-                        <Submenu name="hoursestore">
-                            <template slot="title">
-                                <Icon type="ios-keypad"></Icon>
-                                仓库
-                            </template>    
-                            <MenuGroup title="选项" >                        
-                                <MenuItem name="overview" @click.native="clickStoreHourseSider('overview')">
-                                    <Icon type="ios-list" ></Icon>
-                                    <span>仓库概览</span>
+                    accordion
+                    class="affix-menu-li">     
+                      <!-- @on-select="onSelect"
+                    @on-open-change="onOpenChange" -->
+                        <Row type="flex" justify="space-between">   
+                            <Col >                
+                                <MenuItem name="oprations" @click.native="clickHeader('oprations')" >
+                                    <Icon type="ios-navigate"></Icon>
+                                    操作
                                 </MenuItem>
-                                <MenuItem name="add" @click.native="clickStoreHourseSider('add')">
-                                    <Icon type="android-add"></Icon>
-                                    <span>添加商品</span>
-                                </MenuItem>   
-                            </MenuGroup>                        
-                        </Submenu>
-
-                        <MenuItem name="finance" @click.native="clickHeader('finance')">
-                            <Icon type="stats-bars"></Icon>
-                            财务
-                        </MenuItem>
-                        <MenuItem name="partner" @click.native="clickHeader('partner')">                          
-                            <Icon type="ios-people"></Icon>
-                            合作伙伴
-                        </MenuItem>                        
+                                <!-- <MenuItem name="hoursestore" @click.native="clickStoreHouse()">
+                                    <Icon type="ios-keypad"></Icon>
+                                    仓库
+                                </MenuItem> -->
+                            </Col>
+                            <Col >
+                                <Submenu name="hoursestore">
+                                    <template slot="title">
+                                        <Icon type="ios-keypad"></Icon>
+                                        仓库
+                                    </template>    
+                                    <MenuGroup title="选项" style="width:120px" >                        
+                                        <MenuItem name="overview" @click.native="clickStoreHourseSider('overview')">
+                                            <Icon type="ios-list" ></Icon>
+                                            <span>仓库概览</span>
+                                        </MenuItem>
+                                        <MenuItem name="add" @click.native="clickStoreHourseSider('add')">
+                                            <Icon type="android-add"></Icon>
+                                            <span>添加商品</span>
+                                        </MenuItem>   
+                                    </MenuGroup>                        
+                                </Submenu>
+                            </Col>
+                            <Col >
+                                <Submenu name="finance">
+                                    <template slot="title">
+                                        <Icon type="ios-bars"></Icon>
+                                        财务
+                                    </template>    
+                                    <MenuGroup title="选项" style="width:120px" >   
+                                        <MenuItem name="allFinance" @click.native="clickFinanceSider('allFinance')">
+                                                        <Icon type="android-menu"></Icon>
+                                                        <span>所有财务</span>
+                                        </MenuItem>                     
+                                        <MenuItem name="overviewFinance" @click.native="clickFinanceSider('overviewFinance')">
+                                                        <Icon type="android-open"></Icon>
+                                                        <span>财务总览</span>
+                                        </MenuItem>               
+                                        <MenuItem name="opFinance" @click.native="clickFinanceSider('opFinance')">
+                                            <Icon type="edit"></Icon>
+                                            <span>财务操作</span>
+                                        </MenuItem>
+                                        <MenuItem name="queryFinance" @click.native="clickFinanceSider('queryFinance')">
+                                            <Icon type="android-search"></Icon>
+                                            <span>财务查询</span>
+                                        </MenuItem>   
+                                    </MenuGroup>                        
+                                </Submenu>
+                            </Col>
+                            <Col >
+                            <!-- <MenuItem name="finance" @click.native="clickHeader('finance')">
+                                <Icon type="stats-bars"></Icon>
+                                财务
+                            </MenuItem> -->
+                                <Submenu name="partner">
+                                    <template slot="title">
+                                        <Icon type="ios-people"></Icon>
+                                        伙伴
+                                    </template>    
+                                    <MenuGroup title="选项" style="width:120px" >                        
+                                        <MenuItem name="allPartner" @click.native="clickPartnerSider('allPartner')">
+                                            <Icon type="android-menu"></Icon>
+                                            <span>所有伙伴</span>
+                                        </MenuItem>     
+                                        <MenuItem name="addPartner" @click.native="clickPartnerSider('addPartner')">
+                                            <Icon type="android-add"></Icon>
+                                            <span>添加伙伴</span>
+                                        </MenuItem>     
+                                    </MenuGroup>                        
+                                </Submenu>
+                            </Col>                            
+                            <!-- <MenuItem name="partner" @click.native="clickHeader('partner')">                          
+                                <Icon type="ios-people"></Icon>
+                                伙伴
+                            </MenuItem>         
+                                        -->
+                        </Row>
                   </Menu>
                 </Affix>                
             </Layout>
@@ -356,19 +410,19 @@
             //     })
             // }
             this.$nextTick(()=>{
-                    this.$refs.side_menu.updateOpened();
-                    this.$refs.side_menu.updateActiveName()
+                    this.$refs.sidemenu.updateOpened();
+                    this.$refs.sidemenu.updateActiveName()
                 })
         },
         methods:{
             handleInfo(){
-                console.log("handleInfo");
+                ;
             },
             handleUser(){
                 this.headerActive = "showuser"
             },
             handleLogout(){
-                console.log("单击 注销");
+                
                 axios.get('/login/logout').then(
                    () => {window.location.href = '/login/index'} 
                 )
@@ -380,26 +434,30 @@
                 this.selectedOpraions = name;
             },
             clickFinanceSider(name){
+                this.headerActive = 'finance';
                 this.selectedFinance = name;
             }
             ,
             clickPartnerSider(name){
-                this.selectedPartner = name;
+                this.headerActive = 'partner';
+                this.selectedPartner = name;  
+                console.log(this.$refs.sidemenu)                    
             },
             clickStoreHourseSider(name)
             {
                 this.headerActive = 'hoursestore';
                 this.selected = name;
                 
+                
             },
             clickStoreHouse(){
-                console.log("trgger clickStoreHouse");
+                
                 this.headerActive = 'hoursestore'
                 this.selected = 'overview';
             },
      
             clickSider(res,goodsPage=this.globalData.goodsPage){   
-                console.log('click=',res)  ;           
+                       
                 this.selected = res;                    
                 this.globalData.goodsPage = goodsPage;         
             }
@@ -449,11 +507,7 @@
                 ]
             }
         },
-        created(){
-            
-
-            
-
+        created(){                        
             axios.get([g.http,"/login/getS?name=account"].join('')).then(res=>{
                                                                                 console.log('account-get',res.data);
                                                                                 this.name = res.data.name;
