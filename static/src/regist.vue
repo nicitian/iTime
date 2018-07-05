@@ -1,70 +1,103 @@
 <template>
-    <div class="layout">
-        <Layout>
-            <Header :style="{position: 'fixed', width: '100%'}" >
-                <Menu mode="horizontal" theme="dark" :active-name="headerActive">
-                  <img  class="layout-logo"  :src="logoUrl" alt="logo" />
-                  
-                </Menu>                                                   
-            </Header>               
-            <Layout>
-                <Content :style="{margin: '88px 20px 0', minHeight: '800px'}" >   
-                    <Layout>
-                        <Row type="flex" align="middle" :style="{minHeight:'700px'}">
-                            <Col :xs="{offset:2,span:18}" :md="{offset:10,span:4}"> 
-                                <Row>
-                                    <Col>
-                                        <p align="center" class='login-alert'>
-                                            请填写注册信息
-                                        </p>
+        
+           
+        
+        <Row type="flex" justify="center">
+            <Col span="24">
+                <Row>
+                    <Col span="24">
+                        <Menu mode="horizontal" theme="dark" :style="{width:100+'%'}" >
+                            <img  class="layout-logo"  :src="logoUrl" alt="logo" />
+                        </Menu>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col                         
+                        :sm="{span:24}"                        
+                        :md="{span:8,offset:8}">
+                        <Card  >   
+                            <p  slot="title" align="center" class='login-alert'>
+                                    请填写注册信息
+                            </p>                     
+                            <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="80" action="Regist" method="post">   
+                                    <Row type="flex" justify="center">   
+                                    <Col
+                                        :sm="{span:22}"
+                                        :md="{span:12}">                                            
+                                        <FormItem prop="user" label="用户名">
+                                            <Input type="text" v-model="formInline.user" placeholder="用户名、账户"></Input>
+                                        </FormItem>
                                     </Col>
                                 </Row>
-                                <Row :style="{height:'20px'}">
-                                </Row>                               
-                                <Row>
-                                    <Col >
-                                            <Form ref="form" :model="formInline" :rules="ruleInline" :label-width="80" action="Regist" method="post">                                                
-                                                <FormItem prop="user" label="用户名">
-                                                    <Input type="text" v-model="formInline.user" placeholder="用户名、账户"></Input>
-                                                </FormItem>
-                                                <FormItem prop="password" label="密码">
-                                                    <Input type="password" v-model="formInline.password" placeholder="密码"></Input>
-                                                </FormItem>
-                                                <FormItem prop="mail" label="e-mail">
-                                                    <Input type="mail" v-model="formInline.mail" placeholder="电子邮箱"></Input>
-                                                </FormItem>
-                                                <FormItem prop="phoneNumber" label="手机号码">
-                                                    <Input type="phoneNumber" v-model="formInline.phoneNumber" placeholder="手机号码"></Input>
-                                                </FormItem>
-                                                <FormItem prop="weixinNumber" label="微信号">
-                                                    <Input type="weixinNumber" v-model="formInline.weixinNumber" placeholder="微信号"></Input>
-                                                </FormItem>
-                                                <FormItem prop="qqNumber" label="QQ">
-                                                    <Input type="qqNumber" v-model="formInline.qqNumber" placeholder="QQ号"></Input>
-                                                </FormItem>
-                                                <FormItem>
-                                                    <!-- <Button type="primary" @click="handleSubmit(formInline)">提交</Button> -->
-                                                        <layout>
-                                                            <Row type='flex' justify='center'>
-                                                                <Col >
-                                                                    <Button type="primary" @click="handleSubmit('formInline')">提交</Button>
-                                                                    <Button type="" @click="handleBack()">返回</Button>
-                                                                </Col>
-                                                            </Row>
-                                                        </Layout>
-                                                </FormItem>  
-                                            </Form>
+                                <Row type="flex" justify="center">   
+                                    <Col
+                                        :sm="{span:22}"
+                                        :md="{span:12}"> 
+                                        <FormItem prop="password" label="密码">
+                                            <Input type="password" v-model="formInline.password" placeholder="密码"></Input>
+                                        </FormItem>
                                     </Col>
                                 </Row>
-                        </Col>
-                        </Row>
-                    </Layout>  
-                </Content>
-            </Layout>
-        </Layout>
-        <Footer class="layout-footer-center">2018-2020 &copy; ITime</Footer>
-
-    </div>
+                                <Row type="flex" justify="center"> 
+                                    <Col
+                                        :sm="{span:22}"
+                                        :md="{span:12}">
+                                        <FormItem prop="mail" label="e-mail">
+                                            <Input type="mail" v-model="formInline.mail" placeholder="电子邮箱"></Input>
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row type="flex" justify="center"> 
+                                    <Col
+                                        :sm="{span:22}"
+                                        :md="{span:12}">
+                                        <FormItem prop="phoneNumber" label="手机号码">
+                                            <Input type="phoneNumber" v-model="formInline.phoneNumber" placeholder="手机号码"></Input>
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row type="flex" justify="center"> 
+                                    <Col
+                                        :sm="{span:22}"
+                                        :md="{span:12}">
+                                        <FormItem prop="weixinNumber" label="微信号">
+                                            <Input type="weixinNumber" v-model="formInline.weixinNumber" placeholder="微信号"></Input>
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row type="flex" justify="center"> 
+                                    <Col
+                                        :sm="{span:22}"
+                                        :md="{span:12}">
+                                        <FormItem prop="qqNumber" label="QQ">
+                                            <Input type="qqNumber" v-model="formInline.qqNumber" placeholder="QQ号"></Input>
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row type="flex" justify="center"> 
+                                    <Col
+                                        :sm="{span:24}"
+                                        :md="{span:24}">
+                                        <FormItem>
+                                            <!-- <Button type="primary" @click="handleSubmit(formInline)">提交</Button> -->
+                                                
+                                                    <Row type='flex' justify='center'>
+                                                        <Col >
+                                                            <Button type="primary" @click="handleSubmit('formInline')">提交</Button>
+                                                            <Button type="" @click="handleBack()">返回</Button>
+                                                        </Col>
+                                                    </Row>
+                                                
+                                        </FormItem>  
+                                    </Col>                        
+                                </Row>
+                            </Form>                       
+                        </Card>   
+                    </Col>
+                </Row>
+            </Col>
+        </Row>                  
+    
 </template>
 
 
@@ -81,6 +114,7 @@
     export default {
         data () {
             return {
+                isMobile:window.innerWidth >= 992 ? false :true,
                 logoUrl:'../static/images/logo1.png',
                 formInline: {
                     user: '',
@@ -104,6 +138,19 @@
                         { required: true, message: '邮箱不能为空 ', trigger: 'blur' },
                         { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
                     ]
+                }
+            }
+        },
+        computed:{
+            contentHight(){
+                let sm = {}
+                let md ={margin: '88px 20px 0', minHeight: '800px'}
+                return this.isMobile? sm : md;
+            },
+            divHeight(){
+                let height = window.innerHeight
+                return {
+                    height:height+'px'
                 }
             }
         },
@@ -172,7 +219,7 @@
     }
     .login-alert{
         font-family: "PingFang SC";
-        font-size: 2em;
+        font-size: 1em;
         color:#2d8cf0;        
     }
 </style>

@@ -1,5 +1,7 @@
 <style scoped>
-
+    .buttomnav  {
+       
+    }
     .layout-header-bar{
         background: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
@@ -63,17 +65,17 @@
         vertical-align: middle;
         font-size: 22px;
     }
-    .affix-menu-li li{
-        width:80px;     
+    /* .affix-menu-li li{
+        width:8px;     
         padding-left:0px;
         padding-right:0px;  
-    }
+    } */
 
 </style>
 <template>
     <Row>
         <Col>
-        <Layout class="layout" v-model="isMobile">
+        
             <!-- <Header v-if="isMobile === true" :style="{width:'100%',padding:'0px 10px'}"> -->
               
             
@@ -114,9 +116,23 @@
                 </Menu>                                                   
             </Header>              
                 <Layout v-if="headerActive === 'showuser'">
-                    <user-info></user-info>
-                </Layout>     
-
+                    <Content :style="layoutContent">
+                        <Row>
+                            <Col
+                                :xs="{span:24}"
+                                :sm="{span:24}"
+                                :md="{offset:4,span:16}"
+                                :lg="{offset:4,span:16}"                        
+                            >
+                                <Layout>
+                                    <Content>
+                                        <user-info :isMobile="isMobile"></user-info>
+                                    </Content>
+                                </Layout>
+                            </Col>
+                        </Row>
+                    </Content>
+                </Layout>                     
                 <Layout v-if="headerActive === 'hoursestore'">                    
                     <Content :style="layoutContent" >                              
                         <Row :style="layoutContentRow">
@@ -279,104 +295,215 @@
                     </Content>
                 </Layout>
             
-              
+            
             <Footer v-if="isMobile === false" class="layout-footer-center">2018-2020 &copy; ITime</Footer>
            
-            <Affix :offset-top="heightView-60" :offset-bottom="0" v-if="isMobile === true" :style="{width:'100%'}">
-                    <Menu 
-                    ref="sidemenu"
-                    mode="horizontal" 
-                    theme="dark" 
-                    :active-name="headerActive" 
-                    accordion
-                    class="affix-menu-li">     
-                      <!-- @on-select="onSelect"
-                    @on-open-change="onOpenChange" -->
-                        <Row type="flex" justify="space-between">   
-                            <Col >                
-                                <MenuItem name="oprations" @click.native="clickHeader('oprations')" >
-                                    <Icon type="ios-navigate"></Icon>
-                                    操作
+            <Affix :offset-top="heightView-60" :offset-bottom="0" v-if="isMobile === true" :style="{width:'100%'}">                         
+                <!-- <Row >
+                    <Col span='6'> 
+                        <Menu                                                                         
+                            theme="dark" 
+                            mode="horizontal"
+                            :active-name="headerActive" 
+                            accordion                                    
+                        >                    
+                            <MenuItem name="oprations" @click.native="clickHeader('oprations')" >
+                                <Icon type="ios-navigate"></Icon>
+                                操作
+                            </MenuItem>
+                        </Menu>                                
+                    </Col>                                
+                    <Col span='6'>
+                        <Menu                                                                         
+                            theme="dark" 
+                            mode="horizontal"
+                            :active-name="headerActive" 
+                            accordion
+                        >
+                            <Submenu name="hoursestore">
+                            <template slot="title">
+                                <Icon type="ios-keypad"></Icon>
+                                仓库
+                            </template>    
+                            <MenuGroup title="选项" style="width:120px" >                        
+                                <MenuItem name="overview" @click.native="clickStoreHourseSider('overview')">
+                                    <Icon type="ios-list" ></Icon>
+                                    <span>仓库概览</span>
                                 </MenuItem>
-                                <!-- <MenuItem name="hoursestore" @click.native="clickStoreHouse()">
-                                    <Icon type="ios-keypad"></Icon>
-                                    仓库
-                                </MenuItem> -->
-                            </Col>
-                            <Col >
-                                <Submenu name="hoursestore">
-                                    <template slot="title">
-                                        <Icon type="ios-keypad"></Icon>
-                                        仓库
-                                    </template>    
-                                    <MenuGroup title="选项" style="width:120px" >                        
-                                        <MenuItem name="overview" @click.native="clickStoreHourseSider('overview')">
-                                            <Icon type="ios-list" ></Icon>
-                                            <span>仓库概览</span>
-                                        </MenuItem>
-                                        <MenuItem name="add" @click.native="clickStoreHourseSider('add')">
-                                            <Icon type="android-add"></Icon>
-                                            <span>添加商品</span>
-                                        </MenuItem>   
-                                    </MenuGroup>                        
-                                </Submenu>
-                            </Col>
-                            <Col >
-                                <Submenu name="finance">
-                                    <template slot="title">
-                                        <Icon type="ios-bars"></Icon>
-                                        财务
-                                    </template>    
-                                    <MenuGroup title="选项" style="width:120px" >   
-                                        <MenuItem name="allFinance" @click.native="clickFinanceSider('allFinance')">
-                                                        <Icon type="android-menu"></Icon>
-                                                        <span>所有财务</span>
-                                        </MenuItem>                     
-                                        <MenuItem name="overviewFinance" @click.native="clickFinanceSider('overviewFinance')">
-                                                        <Icon type="android-open"></Icon>
-                                                        <span>财务总览</span>
-                                        </MenuItem>               
-                                        <MenuItem name="opFinance" @click.native="clickFinanceSider('opFinance')">
-                                            <Icon type="edit"></Icon>
-                                            <span>财务操作</span>
-                                        </MenuItem>
-                                        <MenuItem name="queryFinance" @click.native="clickFinanceSider('queryFinance')">
-                                            <Icon type="android-search"></Icon>
-                                            <span>财务查询</span>
-                                        </MenuItem>   
-                                    </MenuGroup>                        
-                                </Submenu>
-                            </Col>
-                            <Col >
-                            <!-- <MenuItem name="finance" @click.native="clickHeader('finance')">
-                                <Icon type="stats-bars"></Icon>
+                                <MenuItem name="add" @click.native="clickStoreHourseSider('add')">
+                                    <Icon type="android-add"></Icon>
+                                    <span>添加商品</span>
+                                </MenuItem>   
+                            </MenuGroup>                        
+                        </Submenu>
+                    </Menu>                                
+                    </Col>                                
+                    <Col span='6'>
+                        <Menu                                                                         
+                            theme="dark" 
+                            mode="horizontal"
+                            :active-name="headerActive" 
+                            accordion
+                        >
+                        <Submenu name="finance">
+                            <template slot="title">
+                                <Icon type="ios-bars"></Icon>
                                 财务
-                            </MenuItem> -->
-                                <Submenu name="partner">
-                                    <template slot="title">
-                                        <Icon type="ios-people"></Icon>
-                                        伙伴
-                                    </template>    
-                                    <MenuGroup title="选项" style="width:120px" >                        
-                                        <MenuItem name="allPartner" @click.native="clickPartnerSider('allPartner')">
-                                            <Icon type="android-menu"></Icon>
-                                            <span>所有伙伴</span>
-                                        </MenuItem>     
-                                        <MenuItem name="addPartner" @click.native="clickPartnerSider('addPartner')">
-                                            <Icon type="android-add"></Icon>
-                                            <span>添加伙伴</span>
-                                        </MenuItem>     
-                                    </MenuGroup>                        
-                                </Submenu>
-                            </Col>                            
-                            <!-- <MenuItem name="partner" @click.native="clickHeader('partner')">                          
+                            </template>    
+                            <MenuGroup title="选项" style="width:120px" >   
+                                <MenuItem name="allFinance" @click.native="clickFinanceSider('allFinance')">
+                                                <Icon type="android-menu"></Icon>
+                                                <span>所有财务</span>
+                                </MenuItem>                     
+                                <MenuItem name="overviewFinance" @click.native="clickFinanceSider('overviewFinance')">
+                                                <Icon type="android-open"></Icon>
+                                                <span>财务总览</span>
+                                </MenuItem>               
+                                <MenuItem name="opFinance" @click.native="clickFinanceSider('opFinance')">
+                                    <Icon type="edit"></Icon>
+                                    <span>财务操作</span>
+                                </MenuItem>
+                                <MenuItem name="queryFinance" @click.native="clickFinanceSider('queryFinance')">
+                                    <Icon type="android-search"></Icon>
+                                    <span>财务查询</span>
+                                </MenuItem>   
+                            </MenuGroup>                        
+                        </Submenu>
+                    </Menu>                                
+                    </Col>                                
+                    <Col span='6'>
+                        <Menu                                                                         
+                            theme="dark" 
+                            mode="horizontal"
+                            :active-name="headerActive" 
+                            accordion
+                        >                            
+                        <Submenu name="partner">
+                            <template slot="title">
                                 <Icon type="ios-people"></Icon>
                                 伙伴
-                            </MenuItem>         
-                                        -->
-                        </Row>
-                  </Menu>
-                </Affix>                
+                            </template>    
+                            <MenuGroup title="选项" style="width:120px" >                        
+                                <MenuItem name="allPartner" @click.native="clickPartnerSider('allPartner')">
+                                    <Icon type="android-menu"></Icon>
+                                    <span>所有伙伴</span>
+                                </MenuItem>     
+                                <MenuItem name="addPartner" @click.native="clickPartnerSider('addPartner')">
+                                    <Icon type="android-add"></Icon>
+                                    <span>添加伙伴</span>
+                                </MenuItem>     
+                            </MenuGroup>                        
+                        </Submenu>
+                    </Menu>                                
+                    </Col>                                                                                                            
+                </Row>                   -->
+                <div class="buttomnav">
+                <Row type="flex" align="middle" :style="{height:60+'px',background:'dark'}">
+                    <Col span="4">
+                        
+                            <Button type="text" size="large" @click.native="clickHeader('oprations')" >
+                                <Icon type="ios-navigate"></Icon>
+                                操作                                
+                            </Button>
+                        
+                    </Col>
+                    <Col span="5">
+                        <Dropdown  trigger="click" placement="top" @on-click="ClickDropdown"> 
+                             
+                            <Button type="text" size="large">
+                                <Icon type="ios-keypad"></Icon>
+                                仓库     
+                                <Icon type="arrow-down-b"></Icon>                           
+                            </Button>
+                            <DropdownMenu slot="list">
+                                <DropdownItem name="hoursestore-overview">
+                                    <Icon type="ios-list" ></Icon>
+                                    <span>仓库概览</span>
+                                </DropdownItem>
+                                <DropdownItem name="hoursestore-add">
+                                    <Icon type="android-add"></Icon>
+                                    <span>添加商品</span>
+                                </DropdownItem>
+                                
+                            </DropdownMenu>
+
+                        </Dropdown>
+                        
+                    </Col>
+                    <Col span="5">
+                        <Dropdown  trigger="click" placement="top"> 
+                             
+                            <Button type="text" size="large">
+                                <Icon type="ios-people"></Icon>
+                                用户
+                                <Icon type="arrow-down-b"></Icon>                          
+                            </Button>
+                            <DropdownMenu slot="list">
+                                <DropdownItem @click.native="handleUser()">我的信息</DropdownItem>                                    
+                                <DropdownItem @click.native="handleLogout()">注销</DropdownItem>  
+                                
+                            </DropdownMenu>
+
+                        </Dropdown>
+                    </Col>
+                    <Col span="5">
+                        <Dropdown  trigger="click" placement="top" @on-click="ClickDropdown"> 
+                             
+                            <Button type="text" size="large">
+                                <Icon type="ios-bars"></Icon>
+                                财务     
+                                <Icon type="arrow-down-b"></Icon>                           
+                            </Button>
+                            <DropdownMenu slot="list">
+                                <DropdownItem name="finance-allFinance">
+                                    <Icon type="android-menu"></Icon>
+                                    <span>所有财务</span>
+                                </DropdownItem>
+                                <DropdownItem name="finance-overviewFinance">
+                                    <Icon type="android-open"></Icon>
+                                    <span>财务总览</span>
+                                </DropdownItem>
+                                <DropdownItem name="finance-opFinance">
+                                    <Icon type="edit"></Icon>
+                                    <span>财务操作</span>
+                                </DropdownItem>
+                                <DropdownItem name="finance-queryFinance">
+                                    <Icon type="android-search"></Icon>
+                                    <span>财务查询</span>
+                                </DropdownItem>                                
+                            </DropdownMenu>
+
+                        </Dropdown>
+                    </Col>
+                    <Col span="5">
+                        <Dropdown  trigger="click" placement="top" @on-click="ClickDropdown"> 
+                             
+                            <Button type="text" size="large">
+                                <Icon type="ios-people"></Icon>
+                                伙伴     
+                                <Icon type="arrow-down-b"></Icon>                           
+                            </Button>
+                            <DropdownMenu slot="list">
+                                <DropdownItem name="partner-allPartner">
+                                     <Icon type="android-menu"></Icon>
+                                    <span>所有伙伴</span>
+                                </DropdownItem>   
+                                <DropdownItem name="partner-addPartner">
+                                    <Icon type="android-add"></Icon>
+                                    <span>添加伙伴</span>
+                                </DropdownItem>
+                                
+                            </DropdownMenu>
+
+                        </Dropdown>
+                    </Col>
+                    <Col>
+                    </Col>
+                    
+
+                </Row>
+                </div>
+            </Affix>                
             </Layout>
         </Col>        
     </Row>
@@ -409,10 +536,10 @@
             //         this.$refs.side_menu.updateActiveName()
             //     })
             // }
-            this.$nextTick(()=>{
-                    this.$refs.sidemenu.updateOpened();
-                    this.$refs.sidemenu.updateActiveName()
-                })
+            // this.$nextTick(()=>{
+            //         this.$refs.sidemenu.updateOpened();
+            //         this.$refs.sidemenu.updateActiveName()
+            //     })
         },
         methods:{
             handleInfo(){
@@ -460,10 +587,21 @@
                        
                 this.selected = res;                    
                 this.globalData.goodsPage = goodsPage;         
-            }
+            },
+            ClickDropdown(name){
+                console.log(name);
+                let getString = name.split('-');
+                this.headerActive = getString[0];
+                this.selected = getString[1];
+                if(getString[0]==='finance')
+                    this.selectedFinance = getString[1];
+                else if(getString[0]==='partner')
+                    this.selectedPartner = getString[1];
+
+            },
         },
         data(){
-            return {              
+            return {                           
                isMobile:window.innerWidth >= 992 ? false :true,
                 xs:768,
                 sm:992,

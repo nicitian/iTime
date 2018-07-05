@@ -1,54 +1,48 @@
 <template>
-    <Content :style="{margin: '88px 20px 0', minHeight: '800px'}" >   
-                    <Layout>
-                        <Row type="flex" align="middle" :style="{minHeight:'700px'}">
-                            <Col span='4' offset='10'> 
-                                <Row>
-                                    <Col>
-                                        <p align="center" class='login-alert'>
-                                            个人信息
-                                        </p>
-                                    </Col>
-                                </Row>
-                                <Row :style="{height:'20px'}">
-                                </Row>                               
-                                <Row>
-                                    <Col >
-                                            <Form ref="formInline" :model="formInline"  :rules="ruleInline" :label-width="80"  method="post">                                                
-                                                <FormItem prop="user" label="用户名">
-                                                    <Input readonly type="text" v-model="formInline.user" placeholder="用户名、账户"></Input>
-                                                </FormItem>
-                                                
-                                                <FormItem prop="mail" label="e-mail">
-                                                    <Input type="mail" v-model="formInline.mail" placeholder="电子邮箱"></Input>
-                                                </FormItem>
-                                                <FormItem prop="phoneNumber" label="手机号码">
-                                                    <Input type="phoneNumber" v-model="formInline.phoneNumber" placeholder="手机号码"></Input>
-                                                </FormItem>
-                                                <FormItem prop="weixinNumber" label="微信号">
-                                                    <Input type="weixinNumber" v-model="formInline.weixinNumber" placeholder="微信号"></Input>
-                                                </FormItem>
-                                                <FormItem prop="qqNumber" label="QQ">
-                                                    <Input type="qqNumber" v-model="formInline.qqNumber" placeholder="QQ号"></Input>
-                                                </FormItem>
-                                                <FormItem>
-                                                    <!-- <Button type="primary" @click="handleSubmit(formInline)">提交</Button> -->
-                                                        <layout>
-                                                            <Row type='flex' justify='center'>
-                                                                <Col >
-                                                                    <Button type="primary" @click="handleSubmit('formInline')">修改</Button>
-                                                                    <Button type="" @click="handleBack()">重置</Button>
-                                                                </Col>
-                                                            </Row>
-                                                        </Layout>
-                                                </FormItem>  
-                                            </Form>
-                                    </Col>
-                                </Row>
-                        </Col>
-                        </Row>
-                    </Layout>  
-                </Content>
+                     
+        <Row :style="divHeight">
+                    <Col                         
+                        :sm="{span:24}"                        
+                        :md="{span:8,offset:8}">
+
+                        <Card :style="divHeight">
+                            <p  slot="title" align="center" class='login-alert'>
+                                    个人信息
+                            </p>         
+                            <Form ref="formInline" :model="formInline"  :rules="ruleInline" :label-width="80"  method="post">                                                
+                                <FormItem prop="user" label="用户名">
+                                    <Input readonly type="text" v-model="formInline.user" placeholder="用户名、账户"></Input>
+                                </FormItem>
+                                
+                                <FormItem prop="mail" label="e-mail">
+                                    <Input type="mail" v-model="formInline.mail" placeholder="电子邮箱"></Input>
+                                </FormItem>
+                                <FormItem prop="phoneNumber" label="手机号码">
+                                    <Input type="phoneNumber" v-model="formInline.phoneNumber" placeholder="手机号码"></Input>
+                                </FormItem>
+                                <FormItem prop="weixinNumber" label="微信号">
+                                    <Input type="weixinNumber" v-model="formInline.weixinNumber" placeholder="微信号"></Input>
+                                </FormItem>
+                                <FormItem prop="qqNumber" label="QQ">
+                                    <Input type="qqNumber" v-model="formInline.qqNumber" placeholder="QQ号"></Input>
+                                </FormItem>
+                                <FormItem>
+                                    <!-- <Button type="primary" @click="handleSubmit(formInline)">提交</Button> -->
+                                        
+                                            <Row type='flex' justify='center'>
+                                                <Col span="24">
+                                                    <Button type="primary" @click="handleSubmit('formInline')">修改</Button>
+                                                    <Button type="" @click="handleBack()">重置</Button>
+                                                </Col>
+                                            </Row>
+                                        
+                                </FormItem>  
+                            </Form>
+                        </Card>   
+                    </Col>
+                </Row>
+                      
+                                        
 </template>
 <script>
 import axios from 'axios';
@@ -59,11 +53,14 @@ axios.defaults.withCredentials = true;
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 export default {
+    props:['isMobile'],
     data(){
+        
         return {
                 logoUrl:'../static/images/logo1.png',
                 formInline: {
-                    user: '',                    
+                    user: '',   
+                    isMobile:window.innerWidth >= 992 ? false :true,               
                     phoneNumber:'',
                     mail:'',
                     weixinNumber:'',
@@ -97,6 +94,27 @@ export default {
                                                         console.log(res.data);
                                                        this.formInline = res.data;
                         });
+    },
+    computed:{
+         heightView(){
+                let height = window.innerHeight - 60;
+                return this.isMobile? height:600;
+            },
+        contentHight(){
+                let sm = {}
+                let md ={margin: '88px 20px 0', minHeight: '800px'}
+                return this.isMobile? sm : md;
+            },
+            divHeight(){
+                let height = window.innerHeight;
+                height = height - 60;
+                
+                console.log("log:"+height);
+                return {
+                    height:this.isMobile?height+'px':'600px' ,
+                    width:'100%'
+                }
+            }
     },
     methods:{
         handleBack()
@@ -147,9 +165,35 @@ export default {
 </script>
 
 <style scoped>
-        .login-alert{
+    .layout{
+        border: 1px solid #ffffff;
+        background: #ffffff;
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .layout-logo{
+        width: 100px;
+        height: 50px;
+        background: #ffffff;
+        border-radius: 3px;
+        float: left;
+        position: relative;
+        top: 6px;
+        bottom: 6px;
+        left: 20px;
+    }
+    .layout-nav{
+        width: 520px;
+        margin: 0 auto;
+        margin-right: 20px;
+    }
+    .layout-footer-center{
+        text-align: center;
+    }
+    .login-alert{
         font-family: "PingFang SC";
-        font-size: 2em;
-        color:#5cadff;        
+        font-size: 1em;
+        color:#2d8cf0;        
     }
 </style>

@@ -55,7 +55,7 @@
                 </Row>
                 <Row v-if="isMobile" type="flex" justify="space-between">
                     <Col span="24">
-                        <Button type="primary" @click="handleQuery()">查询</Button>
+                        <Button type="primary" @click="handleQuery()" :long="isMobile">查询</Button>
                     </Col>
                 </Row>
                 <Row >
