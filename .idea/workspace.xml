@@ -6,15 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3edda986-63e0-44da-8741-6702cbb7f97d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/0.e2bf8e2e.chunk.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/main.e2bf8e2e.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/main.e2bf8e2e.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/dist/vendors.e2bf8e2e.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login/templates/index_.html" afterPath="$PROJECT_DIR$/login/templates/index_.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login/templates/login/login_.html" afterPath="$PROJECT_DIR$/login/templates/login/login_.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/webpack.base.config.js" afterPath="$PROJECT_DIR$/static/webpack.base.config.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/mysite/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="351">
-              <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -794,7 +787,7 @@
     <entry file="file://$PROJECT_DIR$/mysite/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
-          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
           <folding />
         </state>
       </provider>

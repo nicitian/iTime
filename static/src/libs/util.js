@@ -8,7 +8,7 @@ let util = {
         {        
             self.success(info);     
             if(back)                                
-                setTimeout(function toLogin(){window.location.href =toUrl;},1200);
+                setTimeout(function toLogin(){window.location.href = toUrl;},1200);
             return true
         }
          else

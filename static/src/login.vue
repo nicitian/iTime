@@ -146,7 +146,7 @@
                                                             }
                                             );
                     } else {
-                        this.$Message.error('Fail!');
+                        this.$Message.error('登录失败!');
                     }
                 })
             },
