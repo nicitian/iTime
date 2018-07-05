@@ -60,7 +60,7 @@
                 </Row>
                 <Row >
                     <Col>
-                        <Table border  class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">                            
+                        <Table border  :height="520" class="demo-table-info-row blue-theader" :columns="columns1" :data="data1">                            
                             <div slot="footer" style="{height:300px}"> 
                                 <template>                            
                                     <Row v-if="isMobile === false" type="flex" justify="space-between">
